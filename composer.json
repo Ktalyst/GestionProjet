@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"cornford/bootstrapper": "1.*",
-		"gcphost/bootstrap3": "dev-master"
+		"gcphost/bootstrap3": "dev-master",
+        "pdepend/pdepend" : "1.1.0"
 	},
 	"autoload": {
 		"classmap": [

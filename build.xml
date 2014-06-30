@@ -53,7 +53,7 @@
         <delete file="${basedir}/composer.lock" />
     </target>
 
-    <target name="composer" depends="composer-install,composer-update" description="Install or update dependencies" />
+    <target name="composer" depends="composer-update" description="Install or update dependencies" />
 
     <!--// Check to see it the vendor folder already exist, if so, then no reason to run //-->
     <target name="composer.check">
@@ -79,10 +79,6 @@
     <target name="lint" description="Perform syntax check of sourcecode files">
         <apply executable="php" failonerror="false">
             <arg value="-l" />
-            <fileset dir="${basedir}/app">
-                <include name="**/*.php" />
-                <modified />
-            </fileset>
         </apply>
     </target>
 
@@ -148,9 +144,9 @@
 
      <target name="phpmd" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpmd">
-            <arg path="${basedir}/app" />
-            <arg value="text" />
-            <arg value="${basedir}/build/phpmd.xml" />
+               <arg path="${basedir}/app" />
+   <arg value="text" />
+   <arg value="${basedir}/build/phpmd.xml" />
         </exec>
     </target>
 
@@ -165,7 +161,7 @@
     </target>
 
     <target name="phpunit" description="Run unit tests with PHPUnit">
-        <exec executable="phpunit" failonerror="true">
+        <exec executable="phpunit" >
             <arg value="-c" />
             <arg value="${basedir}/phpunit.xml.dist" />
             <arg value="--coverage-html" />
