@@ -8,8 +8,14 @@
 		"cornford/bootstrapper": "1.*",
 		"gcphost/bootstrap3": "dev-master",
 		"rtablada/package-installer": "dev-master",
-		"way/generators": "2.*",
-		"cartalyst/sentry": "2.1.*"
+		"way/generators": "dev-master",
+		"cartalyst/sentry": "2.1.*",
+		"illuminate/support": "4.2.*@dev",
+		"phpspec/phpspec": "2.1.*@dev",
+		"behat/behat": "3.0.*@dev",
+		"behat/mink-extension": "2.0.*@dev",
+		"phpunit/phpunit": "4.3.*@dev",
+		"dollar/generators": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

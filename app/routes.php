@@ -11,7 +11,21 @@
 |
 */
 
-Route::get('/', function()
+Route::get('/', array('as' => 'accueil', function()
 {
-	return View::make('index');
-});
+	return View::make('accueil');
+}));
+
+Route::resource('clients', 'ClientsController');
+
+Route::resource('contacts', 'ContactsController');
+
+Route::resource('clients.contacts', 'ClientsContactsController');
+
+Route::resource('contrats', 'ContratsController');
+
+Route::resource('commandes', 'CommandesController');
+
+Route::resource('items', 'ItemsController');
+
+Route::resource('servicerequests', 'ServicerequestsController');
