@@ -68,8 +68,12 @@ class ClientsController extends BaseController {
 	public function show($id)
 	{
 		$client = $this->client->findOrFail($id);
+    	return array(
+        	'client' => $client,
+        	'contacts' => $client->contacts
+    	);
 
-		return View::make('clients.show', compact('client'));
+		//return View::make('clients.show', compact('client'));
 	}
 
 	/**
@@ -80,14 +84,17 @@ class ClientsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$client = $this->client->find($id);
 
-		if (is_null($client))
-		{
-			return Redirect::route('clients.index');
-		}
-
-		return View::make('clients.edit', compact('client'));
+    	$old = Input::old();
+    	$client = $this->client->find($id);
+    	$contacts = $client->contacts();
+    	$retour = array(
+        	'client' => $client,
+        	'select_contact' => $contacts,
+    	);      
+    	$retour['contact'] = empty($old) ? $client->contacts->toArray(): $old['contact'];
+    	return View::make('clients.edit', $retour);
+    	//return $retour;
 	}
 
 	/**
@@ -98,17 +105,19 @@ class ClientsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
+		$input = var_dump(Input::all());
 		$validation = Validator::make($input, Client::$rules);
-
-		if ($validation->passes())
-		{
-			$client = $this->client->find($id);
-			$client->update($input);
-
-			return Redirect::route('clients.show', $id);
-		}
-
+   		if($validation->passes())
+    	{
+        	$client = $this->client->find($id); 
+        	DB::transaction(function() use($client)
+        	{	
+            	$client->contacts()->sync(Input::get('contacts'));
+            	$client->nom = Input::get('nom');
+            	$client->save();
+        	});
+        	return Redirect::route('clients.show', $id);
+    	} 
 		return Redirect::route('clients.edit', $id)
 			->withInput()
 			->withErrors($validation)

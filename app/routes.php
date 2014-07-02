@@ -20,7 +20,7 @@ Route::resource('clients', 'ClientsController');
 
 Route::resource('contacts', 'ContactsController');
 
-Route::resource('clients.contacts', 'ClientsContactsController');
+//Route::resource('clients.contacts', 'ContactsController');
 
 Route::resource('contrats', 'ContratsController');
 

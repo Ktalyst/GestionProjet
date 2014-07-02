@@ -8,7 +8,10 @@
 
 <p>{{ link_to_route('clients.index', 'Return to All clients', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
 
-<table class="table table-striped">
+    {{ HTML::bootpanel('Nom Client', $client->nom) }}
+    {{ HTML::bootpanelmulti('Contacts', $contacts, 'nom') }}
+
+<!--<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Nom</th>
@@ -26,6 +29,6 @@
                     </td>
 		</tr>
 	</tbody>
-</table>
+</table> -->
 
 @stop

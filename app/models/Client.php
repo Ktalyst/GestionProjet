@@ -7,12 +7,12 @@ class Client extends Eloquent {
 		'nom' => 'required'
 	);
 
-	public function clientContacts()
+	public function contacts()
 	{
 		return $this->hasMany('Contact');
 	}
 
-	public function ClientContrats()
+	public function contrats()
 	{
 		return $this->hasManyThrough('Contrat', 'Contact');
 	}

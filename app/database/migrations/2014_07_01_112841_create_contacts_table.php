@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration {
 			$table->string('nom', 255);
 			$table->string('prenom', 255);
 			$table->text('adresse');
-			$table->integer('id_client')->unsigned();
+			$table->integer('client_id')->unsigned();
 			$table->timestamps();
 		});
 	}
