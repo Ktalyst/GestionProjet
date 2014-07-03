@@ -19,7 +19,7 @@
 </div>
 
 {{ Form::open(array('route' => 'contacts.store', 'class' => 'form-horizontal')) }}
-
+        {{ Form::bootselect('client_id', 'Client :', $select) }}
         <div class="form-group">
             {{ Form::label('nom', 'Nom:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">

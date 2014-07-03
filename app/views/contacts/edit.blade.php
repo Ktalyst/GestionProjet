@@ -19,7 +19,7 @@
 </div>
 
 {{ Form::model($contact, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('contacts.update', $contact->id))) }}
-
+{{ Form::bootselect('client_id', 'Client :', $select, $contact->client_id) }}  
         <div class="form-group">
             {{ Form::label('nom', 'Nom:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
@@ -38,13 +38,6 @@
             {{ Form::label('adresse', 'Adresse:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::textarea('adresse', Input::old('adresse'), array('class'=>'form-control', 'placeholder'=>'Adresse')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('id_client', 'Id_client:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'id_client', Input::old('id_client'), array('class'=>'form-control')) }}
             </div>
         </div>
 

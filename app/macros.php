@@ -19,19 +19,17 @@ Form::macro('boottext', function($name, $label, $input = '')
 Form::macro('bootselect', function($name, $label, $select, $id = null)
 {
     return sprintf('
-        <div class="row">
             <div class="form-group">
                 %s
                 <div class="col-md-10">
                     %s
                 </div>
-            </div>
-        </div>',
-        Form::label($name, $label, array("class" => "col-md-2")),
+            </div>',
+        Form::label($name, $label, array("class" => "col-md-2 control-label")),
         Form::select($name, $select, $id, array('class' => 'form-control'))
     );
 });
-  
+
 Form::macro('bootselectbutton', function($name, $num, $label, $select, $id = null)
 {
     $i = $name.$num;
@@ -42,7 +40,9 @@ Form::macro('bootselectbutton', function($name, $num, $label, $select, $id = nul
                 <div class="col-md-7">
                     %s
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger">Supprimer</button>
+                </div>
             </div>
         </div>',
         'ligne'.$i,
@@ -78,6 +78,22 @@ Form::macro('bootbuttons', function($url)
         $url
     );
 });
+
+Form::macro('bootbuttonsdestroy', function($url, $id)
+{
+   $url = str_replace('inconnu', $id["id"], $url);
+    return sprintf('
+        <div class="form-group">    
+            <div class="col-md-offset-2">   
+                <a href="%s" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-remove"></span> Supprimer
+                </a>
+            </div>
+        </div>',
+        $url
+    );
+});
+
 
 HTML::macro('bootpanel', function($titre, $nom)
 {

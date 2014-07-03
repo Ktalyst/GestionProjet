@@ -4,62 +4,42 @@
 
 @section('main')
 
-{{ Form::open(array('url' => 'clients/'.$client->id, 'method' => 'put', 'class' => 'form-horizontal panel')) }}   
-{{ Form::bootlegend('Modification du client') }}<br>
-{{ Form::boottext('nom', 'Nom :', $client->nom) }}<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <h1>Edit Contact</h1>
 
-
-@for ($i = 0; $i < count($client->contacts); $i++)
-        <div class="row ligne" id="ligne{{ $i }}">
-            <div class="form-group">
-                {{ Form::label('contact'.+$i, 'Contact :', array("class" => "col-md-3")) }}
-                <div class="col-md-7">
-                    {{ Form::select('contact'.+$i, $select_contacts, $contacts[$i], array('class' => 'form-control', 'name' => 'contact'.'[]')) }}
-                </div>
-                <div class="col-md-2">
-                    {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('contacts.destroy', 1))) }}
-                        {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                    {{ Form::close() }}
-                </div>
-            </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+            </ul>
         </div>
+        @endif
+    </div>
+</div>
 
-@endfor
+{{ Form::model($client, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('clients.update', $client->id))) }}
+
+<div class="form-group">
+    {{ Form::label('nom', 'Nom:', array('class'=>'col-md-2 control-label')) }}
+    <div class="col-sm-10">
+        {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">&nbsp;</label>
+    <div class="col-sm-10">
+        {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
+        {{ link_to_route('clients.show', 'Cancel', $client->id, array('class' => 'btn btn-lg btn-default')) }}
+    </div>
+</div>
+
+{{ Form::close() }}
 
 <div class="row">
-    <button id="add" type="button" class="btn btn-primary pull-right">Ajouter un contact</button>
+    {{ link_to_route('contacts.create', 'Ajouter un contact', $client->id, array('class' => 'btn btn-lg btn-default')) }}
 </div>
-<br><hr>
-{{ Form::bootbuttons(url('clients')) }}
-{{ Form::close() }}
-@stop
-@section('scripts')
-<script>
-$(function(){
-    // Suppression d'une ligne d'auteurs
-    $(".btn-danger").click(function() {
-        // On supprime la ligne s'il en reste au moins 2
-            $(this).parents('.row .ligne').remove(); 
-    });
-    $("#add").click(function() {
-        var max = id = 0;
-        // Recherche dernier id
-        $('.ligne').each(function(){
-            id = parseInt($(this).attr('id').replace('lignecontact', ''));
-            if(id > max) max = id;
-        });
-        // Première ligne
-        var clone = $('#lignecontact' + max).clone(true);
-        // Change l'id
-        clone.attr('id', 'lignecontact' + ++max);
-        // Change le for du label 
-        clone.find('label').attr('for', 'contact' + max);
-        // Change l'id du select
-        clone.find('select').attr('id', 'contact' + max);
-        clone.find('option').attr('selected', null);
-        // Ajoute la ligne à la fin
-        $('#lignecontact' + id).after(clone);            
-    });
-})
-</script>
+
 @stop

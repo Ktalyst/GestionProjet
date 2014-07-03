@@ -15,7 +15,7 @@
 				<th>Nom</th>
 				<th>Prenom</th>
 				<th>Adresse</th>
-				<th>Id_client</th>
+				<th>Client</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -26,7 +26,7 @@
 					<td>{{{ $contact->nom }}}</td>
 					<td>{{{ $contact->prenom }}}</td>
 					<td>{{{ $contact->adresse }}}</td>
-					<td>{{{ $contact->id_client }}}</td>
+					<td>{{{ $contact->client->nom }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('contacts.destroy', $contact->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

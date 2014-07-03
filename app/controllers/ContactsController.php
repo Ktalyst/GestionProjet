@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 
 class ContactsController extends BaseController {
 
@@ -7,11 +8,12 @@ class ContactsController extends BaseController {
 	 *
 	 * @var Contact
 	 */
-	protected $contact;
+	protected $client;
 
-	public function __construct(Contact $contact)
+	public function __construct(Contact $contact, Client $client)
 	{
 		$this->contact = $contact;
+		$this->client = $client;
 	}
 
 	/**
@@ -33,7 +35,7 @@ class ContactsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('contacts.create');
+		return View::make('contacts.create', array('select' => $this->client->all()->lists('nom', 'id')));
 	}
 
 	/**
@@ -67,9 +69,12 @@ class ContactsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		/*$contact = $this->contact->findOrFail($id);
+		$contact = $this->contact->findOrFail($id);
 
-		return View::make('contacts.show', compact('contact'));*/
+		return View::make('contacts.show', array(
+			'contact' => $contact,
+			'client' => $contact->client->nom
+		));
 	}
 
 	/**
@@ -87,7 +92,10 @@ class ContactsController extends BaseController {
 			return Redirect::route('contacts.index');
 		}
 
-		return View::make('contacts.edit', compact('contact'));
+		return View::make('contacts.edit',array(
+			'contact' => $contact,
+			'select' => $this->client->all()->lists('nom', 'id')
+		));
 	}
 
 	/**
@@ -124,7 +132,7 @@ class ContactsController extends BaseController {
 	public function destroy($id)
 	{
 		$this->contact->find($id)->delete();
-
+		return true;
 	}
 
 }

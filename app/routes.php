@@ -30,7 +30,7 @@ Route::resource('items', 'ItemsController');
 
 Route::resource('servicerequests', 'ServicerequestsController');
 
-Route::delete('/contacts/{id}', array('as' => 'deletecontacts', function()
+Route::get('/contacts/{id}/delete', array('as' => 'deletecontacts', function($id)
 {
-	return App::make('ContactsController')->destroy(1);
+	return App::make('ContactsController')->destroy($id);
 }));
