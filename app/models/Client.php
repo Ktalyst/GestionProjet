@@ -9,7 +9,7 @@ class Client extends Eloquent {
 
 	public function contacts()
 	{
-		return $this->hasMany('Contact');
+		return $this->hasMany('Contact', 'client_id');
 	}
 
 	public function contrats()

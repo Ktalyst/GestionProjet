@@ -32,7 +32,7 @@ class ClientsGestion extends \BaseGestion {
 	{
 		$clients = $this->client->all();
 
-		return View::make('clients.index', compact('clients'));
+		//return View::make('clients.index', compact('clients'));
 	}
 
 	/**
@@ -61,12 +61,17 @@ class ClientsGestion extends \BaseGestion {
 			DB::transaction(function() use($client)
 			{
 				$client->save();
-				$contacts = array_unique(Input::get('contact'));
-				/*foreach($contacts as $contact)
+				if(Input::get('contact'))
 				{
-					$client->contacts()->save($contact);
-				}*/
-				return $contacts;
+					$contacts = array_unique(Input::get('contact'));
+					foreach($contacts as $contact_id)
+					{
+						$contact = $this->contacts->find($contact_id);
+						//$client->contacts->add($contact);
+						$contact->client()->associate($client);
+						$contact->save();
+					}
+				}
 			});				
 			return true;
 		}
@@ -97,10 +102,10 @@ class ClientsGestion extends \BaseGestion {
 	public function edit($id)
 	{
 		$old = Input::old();
-		$client = $this->model->find($id);
+		$client = $this->client->find($id);
 		$retour = array(
 			'client' => $client,
-			'select_contacts' => $this->contacts()->lists('nom', 'id'),
+			'select_contacts' => $this->contacts->lists('nom', 'id'),
 		);		
 		$retour['contacts'] = empty($old) ? $client->contacts->toArray(): $old['contact'];
 		return $retour;
@@ -116,10 +121,26 @@ class ClientsGestion extends \BaseGestion {
 	{
 		if($this->validation->with(Input::all())->passes())
 		{
-			$client = $this->model->find($id);	
+			$client = $this->client->find($id);	
 			DB::transaction(function() use($client)
-			{		
-				$client->contacts()->sync(Input::get('contact'));
+			{
+				/*if(Input::get('contact')){
+					$contacts = array_unique(Input::get('contact'));
+					foreach($client->contacts as $key){
+						$client->contacts->pop();
+					}
+					foreach($contacts as $contact_id)
+					{
+						$contact = $this->contacts->find($contact_id);
+						$client->contacts->add($contact);
+						$contact->client()->associate($client);
+						$contact->save();
+					}
+				}
+				//$client->contacts()->save(Input::get('contact'));
+				$client->nom = Input::get('nom');
+				$client->save();*/
+
 				$client->nom = Input::get('nom');
 				$client->save();
 			});
@@ -136,10 +157,10 @@ class ClientsGestion extends \BaseGestion {
 	 */
 	public function destroy($id)
 	{
-		$client = $this->model->find($id);
+		$client = $this->client->find($id);
 		DB::transaction(function() use($client)
 		{
-			$client->contacts()->detach();
+			//$client->contacts()->detach();
 			$client->delete();
 		});
 	}

@@ -9,7 +9,7 @@ class Contact extends Eloquent {
 		'adresse' => 'required',
 	);
 
-	public function ContactClient()
+	public function client()
 	{
 		return $this->belongsTo('Client');
 	}

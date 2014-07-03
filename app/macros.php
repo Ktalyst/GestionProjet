@@ -31,7 +31,7 @@ Form::macro('bootselect', function($name, $label, $select, $id = null)
         Form::select($name, $select, $id, array('class' => 'form-control'))
     );
 });
-
+  
 Form::macro('bootselectbutton', function($name, $num, $label, $select, $id = null)
 {
     $i = $name.$num;
@@ -42,9 +42,7 @@ Form::macro('bootselectbutton', function($name, $num, $label, $select, $id = nul
                 <div class="col-md-7">
                     %s
                 </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger">Supprimer</button>
-                </div>
+                <div class="col-md-2"></div>
             </div>
         </div>',
         'ligne'.$i,

@@ -67,9 +67,9 @@ class ContactsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$contact = $this->contact->findOrFail($id);
+		/*$contact = $this->contact->findOrFail($id);
 
-		return View::make('contacts.show', compact('contact'));
+		return View::make('contacts.show', compact('contact'));*/
 	}
 
 	/**
@@ -119,13 +119,12 @@ class ContactsController extends BaseController {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * 
 	 */
 	public function destroy($id)
 	{
 		$this->contact->find($id)->delete();
 
-		return Redirect::route('contacts.index');
 	}
 
 }

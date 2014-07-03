@@ -29,3 +29,8 @@ Route::resource('commandes', 'CommandesController');
 Route::resource('items', 'ItemsController');
 
 Route::resource('servicerequests', 'ServicerequestsController');
+
+Route::delete('/contacts/{id}', array('as' => 'deletecontacts', function()
+{
+	return App::make('ContactsController')->destroy(1);
+}));
