@@ -7,7 +7,6 @@ class Contact extends Eloquent {
 		'nom' => 'required',
 		'prenom' => 'required',
 		'adresse' => 'required',
-		'id_client' => 'required'
 	);
 
 	public function ContactClient()

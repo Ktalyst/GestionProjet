@@ -41,12 +41,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            {{ Form::label('id_client', 'Id_client:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'id_client', Input::old('id_client'), array('class'=>'form-control')) }}
-            </div>
-        </div>
 
 
 <div class="form-group">
