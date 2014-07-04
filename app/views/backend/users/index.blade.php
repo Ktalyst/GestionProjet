@@ -1,4 +1,4 @@
-@extends('backend/layouts/default')
+@extends('backend/layout/layout')
 
 @section('content')
 
@@ -25,7 +25,7 @@
 					<td>{{ $user->email }}</td>
 					<td>
 					@if ($user->role_id == 1) utilisateur
-					@elseif ($user->role_id == 2) rédacteur
+					@elseif ($user->role_id == 2) manager
 					@else administrateur
 					@endif
 					</td>

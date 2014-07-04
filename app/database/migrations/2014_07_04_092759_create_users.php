@@ -17,8 +17,7 @@ class CreateUsers extends Migration {
 			$table->string('username', 64)->unique();
 			$table->string('password', 64);
 			$table->string('email', 64)->unique();
-			//$table->enum('statut', array('user', 'admin', 'resource', 'manager'))->default('user');
-			$table->integer('role_id')->default(1);
+			$table->enum('statut', array('user', 'admin', 'resource', 'manager'))->default('user');
 			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();
       });

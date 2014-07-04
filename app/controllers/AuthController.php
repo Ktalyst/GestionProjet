@@ -26,7 +26,7 @@ class AuthController extends BaseController {
     */
     public function getLogin()
     {
-        return $this->createView('auth.login');
+        return View::make('auth.login');
     }
  
   /**
@@ -48,8 +48,10 @@ class AuthController extends BaseController {
     {
         $user = array('username' => Input::get('username'), 'password' => Input::get('password'));
         if (Auth::attempt($user, Input::get('souvenir'))) {
-          return Redirect::intended('/')
-            ->with('flash_notice', 'Vous avez été correctement connecté avec le pseudo ' . Auth::user()->username);
+            if(Auth::user()->role == 'admin') {
+                return Redirect::intended('admin'); }
+            return Redirect::intended('/')
+                ->with('flash_notice', 'Vous avez été correctement connecté avec le pseudo ' . Auth::user()->username);
         }
         return Redirect::to('guest/login')->with('flash_error', 'Pseudo ou mot de passe non correct !')->withInput();       
     }

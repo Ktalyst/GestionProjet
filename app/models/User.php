@@ -39,16 +39,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->email;
     }
 
-    public function role()
-    {
-        return $this->belongsTo('Role');
-    }
+    public static $rules = array(
+        'username' => 'required|Alpha|between:6,64',
+        'email' => 'required|email',
+        'password' => 'required|AlphaNum|between:6,20|confirmed'
+    );
 
     public static function validate($input)
     {
         $rules = array(
-            'username' => 'required|Alpha|between:6,64|unique:users',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|Alpha|between:6,64',
+            'email' => 'required|email',
             'password' => 'required|AlphaNum|between:6,20|confirmed'
         );
         $messages = array(

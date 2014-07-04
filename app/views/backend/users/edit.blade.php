@@ -1,4 +1,4 @@
-@extends('backend/layouts/default')
+@extends('backend/layout/layout')
 
 @section('content')
 
@@ -32,12 +32,12 @@
 	                </div>
 	            </div>
 			    <div class="control-group {{ $errors->first('role_id', 'error') }}">
-			    	{{ Form::label('role_id', 'Rôle :', array('class' => 'control-label')) }}
+			    	{{ Form::label('statut', 'Statut :', array('class' => 'control-label')) }}
 			    	<div class="controls">
 				    	<select name="role_id" id="role_id" class="input-medium">
-							<option value="1"{{ $user->role_id == 1 ? ' selected' : '' }}>Utilisateur</option>
-							<option value="2"{{ $user->role_id == 2 ? ' selected' : '' }}>Rédacteur</option>
-							<option value="3"{{ $user->role_id == 3 ? ' selected' : '' }}>Administrateur</option>
+							<option value="1"{{ $user->statut == 1 ? ' selected' : '' }}>Utilisateur</option>
+							<option value="2"{{ $user->statut == 2 ? ' selected' : '' }}>Manager</option>
+							<option value="3"{{ $user->statut == 3 ? ' selected' : '' }}>Administrateur</option>
 						</select>
 				    </div>
 			    </div>

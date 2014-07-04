@@ -1,7 +1,5 @@
 @extends('layouts.scaffold')
  
-@include('layouts.navigation')
- 
 @section('main')
  
     <div class="col-md-12">

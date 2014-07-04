@@ -19,17 +19,12 @@ Route::controller('remind', 'RemindersController');
 
 Route::group(array('before' => 'admin'), function()
 {
-
-	// Utilisateurs
 	Route::resource('users', 'UserController');
-
-	// Accueil de l'administration
 	Route::get('admin', array('as' => 'admin', function(){return View::make('backend.accueil');}));
 });
 
 Route::group(array('before' => 'manager'), function()
 {
-
 	Route::resource('clients', 'ClientsController');
 	Route::resource('contacts', 'ContactsController');
 	Route::resource('contrats', 'ContratsController');

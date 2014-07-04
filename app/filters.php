@@ -39,7 +39,7 @@ Route::filter('auth', function()
 	{
 		if (Request::ajax())
 		{
-			return Response::make('Unauthorized', 401);
+			return Response::make('Raté auth', 401);
 		}
 		else
 		{
@@ -50,12 +50,12 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if(!User::admin()) return Response::view('error.403', array(), 403);
+	if(!Auth::user()->statut == 'admin') return Response::make('Raté admin', 401);
 });
 
 Route::filter('manager', function()
 {
-	if(!User::manager() and !User::admin()) return Response::view('error.403', array(), 403);
+	if(!Auth::user()->statut == 'manager' || !Auth::user()->statut == 'admin') return Response::make('Raté manager', 401);
 });
 
 

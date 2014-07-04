@@ -1,4 +1,4 @@
-@extends('backend/layouts/default')
+@extends('backend.layout.layout')
 
 @section('content')
 <div class="span12">
