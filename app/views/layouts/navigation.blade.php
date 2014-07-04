@@ -1,9 +1,14 @@
 @section('navigation')
-    <li><a href="{{URL::route('accueil')}}" class="actif">Accueil</a></li>
-    <li><a href="{{URL::route('clients.index')}}">Client</a></li>
-    <li><a href="{{URL::route('contacts.index')}}">Contact</a></li>
-    <li><a href="{{URL::route('contrats.index')}}">Contrat</a></li>
-    <li><a href="{{URL::route('commandes.index')}}">Commande</a></li>
-    <li><a href="{{URL::route('items.index')}}">Item</a></li>
-    <li><a href="{{URL::route('servicerequests.index')}}">Service Request</a></li>
+    <li>{{ link_to_route('accueil', 'Accueil', null) }}</li>
+    <li>{{ link_to_route('clients.index', 'Client', null) }}</li>
+    <li>{{ link_to_route('contacts.index', 'Contact', null) }}</li>
+    <li>{{ link_to_route('contrats.index', 'Contrat', null) }}</li>
+    <li>{{ link_to_route('commandes.index', 'Commande', null) }}</li>
+    <li>{{ link_to_route('items.index', 'Item', null) }}</li>
+    <li>{{ link_to_route('servicerequests.index', 'Service Request', null) }}</li>
+ @if (Auth::check())
+    <li>{{ link_to('auth/logout', 'Deconnexion') }}</li>
+  @else
+    <li>{{ link_to('auth/login', 'Connexion') }}</li>
+  @endif
 @stop

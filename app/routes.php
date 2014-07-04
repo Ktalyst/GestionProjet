@@ -11,26 +11,29 @@
 |
 */
 
-Route::get('/', array('as' => 'accueil', function()
+Route::get('/', array('uses' => 'HomeController@accueil', 'before' => 'auth', 'as' => 'accueil'));
+
+Route::controller('auth', 'AuthController');
+
+Route::controller('remind', 'RemindersController');
+
+Route::group(array('before' => 'admin'), function()
 {
-	return View::make('accueil');
-}));
 
-Route::resource('clients', 'ClientsController');
+	// Utilisateurs
+	Route::resource('users', 'UserController');
 
-Route::resource('contacts', 'ContactsController');
+	// Accueil de l'administration
+	Route::get('admin', array('as' => 'admin', function(){return View::make('backend.accueil');}));
+});
 
-//Route::resource('clients.contacts', 'ContactsController');
-
-Route::resource('contrats', 'ContratsController');
-
-Route::resource('commandes', 'CommandesController');
-
-Route::resource('items', 'ItemsController');
-
-Route::resource('servicerequests', 'ServicerequestsController');
-
-Route::get('/contacts/{id}/delete', array('as' => 'deletecontacts', function($id)
+Route::group(array('before' => 'manager'), function()
 {
-	return App::make('ContactsController')->destroy($id);
-}));
+
+	Route::resource('clients', 'ClientsController');
+	Route::resource('contacts', 'ContactsController');
+	Route::resource('contrats', 'ContratsController');
+	Route::resource('commandes', 'CommandesController');
+	Route::resource('items', 'ItemsController');
+	Route::resource('servicerequests', 'ServicerequestsController');
+});

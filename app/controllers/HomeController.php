@@ -2,22 +2,41 @@
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
-	public function showWelcome()
+	public function __construct()
 	{
-		return View::make('hello');
+		$this->beforeFilter('csrf', ['on' => 'post']);
+	}
+	
+
+  /**
+	* Affiche la page d'accueil
+	*
+	* @return View
+	*/
+	public function accueil()
+	{
+		return View::make('accueil');
+	}
+
+
+  /**
+	* Traitement du formulaire de recherche
+	*
+	* @return View ou Redirect
+	*/
+	public function find()
+	{
+
+	}
+
+  /**
+	* Traitement du formulaire d'ajout de commentaires
+	*
+	* @return Redirect
+	*/
+	public function comment()
+	{
+
 	}
 
 }

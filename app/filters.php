@@ -43,9 +43,19 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('auth/login');
 		}
 	}
+});
+
+Route::filter('admin', function()
+{
+	if(!User::admin()) return Response::view('error.403', array(), 403);
+});
+
+Route::filter('manager', function()
+{
+	if(!User::manager() and !User::admin()) return Response::view('error.403', array(), 403);
 });
 
 
@@ -81,10 +91,10 @@ Route::filter('guest', function()
 |
 */
 
-/*Route::filter('csrf', function()
+Route::filter('csrf', function()
 {
 	if (Session::token() != Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
-});*/
+});
