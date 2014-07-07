@@ -15,7 +15,7 @@
     {{ HTML::style('css/AdminLTE.css'); }}
     {{ HTML::style('css/datatables/dataTables.bootstrap.css'); }}
 </head>
-<body class="skin-blue">
+<body class="skin-black">
     <header class="header">
         @yield('header')
     </header>
@@ -29,7 +29,6 @@
     </div>
     <script async="" src="//www.google-analytics.com/analytics.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    {{ HTML::script('js/jquery-ui-1.10.3.min.js'); }}
     {{ HTML::script('js/bootstrap.min.js'); }}
      @yield('script')
     {{ HTML::script('js/plugins/datatables/jquery.dataTables.js'); }}

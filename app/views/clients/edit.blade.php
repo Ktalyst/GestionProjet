@@ -13,16 +13,11 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> List</a></li>
-        <li class="active">Clients</li>
+        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> Customers</a></li>
+        <li class="active">Edit</li>
     </ol>
 </section>
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12 connectedSortable">
-
-        </div>
-    </div>
     <div class="row">
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
@@ -37,8 +32,16 @@
                         </div>
                     </div>
                 </div>
-                {{ Form::model($client, array('role' => 'form',  'method' => 'PATCH', 'route' => array('clients.update', $client->id))) }}
                 <div class="box-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+                        </ul>
+                    </div>
+                    @endif
+                    {{ Form::model($client, array('role' => 'form',  'method' => 'PATCH', 'route' => array('clients.update', $client->id))) }}
+                    
                     <div class="form-group">
                         {{ Form::label('nom', 'Nom:') }}
                         {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}

@@ -9,17 +9,17 @@
         </li>
         <li>
             <a href="{{ URL::route('clients.index') }}">
-                <i class="glyphicon glyphicon-user"></i> <span>Clients</span>
+                <i class="glyphicon glyphicon-user"></i> <span>Customers</span>
             </a>
         </li>
         <li>
             <a href="{{ URL::route('contrats.index') }}">
-                <i class="glyphicon glyphicon-file"></i> <span>Contrats</span>
+                <i class="glyphicon glyphicon-file"></i> <span>Contracts</span>
             </a>
         </li>
         <li>
             <a href="{{ URL::route('commandes.index') }}">
-                <i class="glyphicon glyphicon-barcode"></i> <span>Commandes</span>
+                <i class="glyphicon glyphicon-barcode"></i> <span>Orders</span>
             </a>
         </li>
     </ul>

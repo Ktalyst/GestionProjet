@@ -47,13 +47,12 @@ class ContratsController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-
-			$this->contrat->create($input);
-
-			return Redirect::route('contrats.index');
-
-
+		$contact = Input::get('contact_id');
+		$nom = Input::get('nom');
+		$code = Input::get('code');
+		$input=(array("nom" => $nom, "code" => $code, 'contact_id' => $contact));
+		$this->contrat->create($input);
+		return Redirect::route('contrats.index');
 
 	}
 
@@ -85,7 +84,7 @@ class ContratsController extends BaseController {
 			return Redirect::route('contrats.index');
 		}
 
-		return View::make('contrats.edit', compact('contrat'));
+		return View::make('contrats.edit', compact('contrat'), array('select' => $this->contact->all()->lists('nom', 'id')));
 	}
 
 	/**
@@ -96,21 +95,17 @@ class ContratsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Contrat::$rules);
+		$contact = Input::get('contact_id');
+		$nom = Input::get('nom');
+		$code = Input::get('code');
+		$input=(array("nom" => $nom, "code" => $code, 'contact_id' => $contact));
+		$contrat = $this->contrat->find($id);
+		$contrat->update($input);
 
-		if ($validation->passes())
-		{
-			$contrat = $this->contrat->find($id);
-			$contrat->update($input);
 
-			return Redirect::route('contrats.show', $id);
-		}
 
-		return Redirect::route('contrats.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		return Redirect::route('contrats.show', $id);
+
 	}
 
 	/**

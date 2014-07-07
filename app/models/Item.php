@@ -8,6 +8,10 @@ class Item extends Eloquent {
 		'dateRecu' => 'required',
 		'montant' => 'required',
 		'description' => 'required',
-		'id_commande' => 'required'
+		'commande_id' => 'required'
 	);
+	public function commande()
+	{
+		return $this->belongsTo('Commande');
+	}
 }

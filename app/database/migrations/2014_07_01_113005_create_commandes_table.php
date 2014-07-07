@@ -15,7 +15,7 @@ class CreateCommandesTable extends Migration {
 		Schema::create('commandes', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('code');
-			$table->integer('id_contrat');
+			$table->integer('contrat_id')->unsigned();
 			$table->timestamps();
 		});
 	}

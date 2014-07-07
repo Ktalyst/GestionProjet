@@ -8,13 +8,13 @@
 
 <section class="content-header">
     <h1>
-        Clients
+        Customer
         <small>Create</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> List</a></li>
-        <li class="active">Clients</li>
+        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> Customers</a></li>
+        <li class="active">create</li>
     </ol>
 </section>
 <section class="content">
@@ -27,17 +27,25 @@
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
                 <div class="box-header">
-                    <div class="box-title">Create clients</div>
+                    <div class="box-title">Create customer</div>
                 </div>     
-                {{ Form::open(array('route' => 'clients.store', 'role' => 'form')) }}
                 <div class="box-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+                        </ul>
+                    </div>
+                    @endif
+                    {{ Form::open(array('route' => 'clients.store', 'role' => 'form')) }}
                     <div class="form-group">
-                        {{ Form::label('nom', 'Nom:', array('class'=>'col-md-2 control-label')) }}
-                        {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
+                        {{ Form::label('nom', 'Name:', array('class'=>'col-md-2 control-label')) }}
+                        {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Enter a name')) }}
                     </div>
                 </div>
                 <div class="box-footer">
                     {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
+                    <a href = "{{ URL::previous() }}" class = 'btn btn-lg btn-default'>Back</a>
                 </div>
                 {{ Form::close() }}
             </div>

@@ -27,37 +27,57 @@
                 {{ Form::open(array('route' => 'contrats.store')) }}
                 <div class="box-body">
                     <div class="form-group">
-                    {{ Form::bootselect('client_id', 'Client :', $selectclient) }}
+                        {{ Form::label('Client:') }} 
+                        <select class="form-control" id="client_id" name="client_id">
+                            <option selected disabled>Please Select</option>
+                            @foreach ($selectclient as $key => $client)
+                            <option value={{{ $key }}}>{{{ $client }}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                    {{ Form::bootselect('contact_id', 'Contact :', $selectcontact) }}
+                        {{ Form::label('Contact:') }} 
+                        <select class="form-control" id="contact_id" name="contact_id">
+                            <option selected disabled>Please Select</option>
+                            @foreach ($selectclient as $key => $client)
+                            <!--<option value={{{ $key }}}>{{{ $client }}}</option>-->
+                            @endforeach
+                        </select>
+                        <div class="form-group">
+                            {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }} 
+                            {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('code', 'Code:', array('class'=>'control-label')) }}
+                            {{ Form::text('code', Input::old('code'), array('class'=>'form-control', 'placeholder'=>'Code')) }}
+                        </div>
                     </div>
-                    <div class="form-group">
-                        {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }} 
-                        {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
+                    <div class="box-footer">
+                        {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
                     </div>
-                    <div class="form-group">
-                        {{ Form::label('code', 'Code:', array('class'=>'control-label')) }}
-                        {{ Form::text('code', Input::old('code'), array('class'=>'form-control', 'placeholder'=>'Code')) }}
-                    </div>
+                    {{ Form::close() }}
                 </div>
-                <div class="box-footer">
-                    {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
-                </div>
-                {{ Form::close() }}
-            </div>
-        </section>
-    </div>
-</section>
-@stop
+            </section>
+        </div>
+    </section>
+    @stop
 
 @section('script')
-  <script type="text/javascript">
-    $(document).ready(function(){
-          $('#client_id').change(function()
-            {
-                alert('changement de la valeur ' + $(this).attr('value'));
+
+<script type="text/javascript">
+jQuery(document).ready(
+    function($){
+        $('#client_id').change(function(){
+            $.get("{{ url('api/dropdown')}}",
+            { option: $(this).val() },
+            function(data) {
+                var contact = $('#contact_id');
+                contact.empty();
+                $.each(data, function(index,element) {
+                    contact.append("<option value='"+ index +"''>" + element + "</option>");
             });
+        });
     });
-  </script>
+});
+</script>
 @stop

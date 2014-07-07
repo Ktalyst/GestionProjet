@@ -1,33 +1,55 @@
 @extends('layouts.scaffold')
 
-@include('layouts.navigation')
+@include('layouts.header')
+
+@include('layouts.sidebar')
 
 @section('main')
 
-<h1>Show Commande</h1>
+<section class="content-header">
+	<h1>
+		Commande
+		<small>Show</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Commande</li>
+	</ol>
+</section>
 
-<p>{{ link_to_route('commandes.index', 'Return to All commandes', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
-
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Code</th>
-				<th>Id_contrat</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $commande->code }}}</td>
-					<td>{{{ $commande->id_contrat }}}</td>
-                    <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('commandes.destroy', $commande->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                        {{ link_to_route('commandes.edit', 'Edit', array($commande->id), array('class' => 'btn btn-info')) }}
-                    </td>
-		</tr>
-	</tbody>
-</table>
-
+<section class="content">
+	<div class="row">
+		<section class="col-xs-12 connectedSortable"> 
+			<div class="box box-primary">
+				<div class="box-header">
+					<div class="box-title">{{{ $commande->code }}}</div>
+				</div>
+				<div class="box-body table-responsive">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Date</th>
+								<th>Montant</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($commande->items as $item)
+							<tr>
+								<td>{{{ $item->code }}}</td>
+								<td>{{{ $item->dateRecu }}}</td>
+								<td>{{{ $item->montant }}}</td>
+								<td>{{{ $item->description }}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="box-footer">
+					<a href="{{ URL::previous() }}" class="btn btn-info">Back</a>
+				</div>
+			</div>
+		</section>			
+	</div>
+</section>
 @stop

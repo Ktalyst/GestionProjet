@@ -9,9 +9,10 @@ class CommandesController extends BaseController {
 	 */
 	protected $commande;
 
-	public function __construct(Commande $commande)
+	public function __construct(Commande $commande, Contrat $contrat)
 	{
 		$this->commande = $commande;
+		$this->contrat = $contrat;
 	}
 
 	/**
@@ -33,7 +34,7 @@ class CommandesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('commandes.create');
+		return View::make('commandes.create', array('select' => $this->contrat->all()->lists('nom', 'id')));
 	}
 
 	/**
@@ -44,19 +45,11 @@ class CommandesController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Commande::$rules);
 
-		if ($validation->passes())
-		{
 			$this->commande->create($input);
 
 			return Redirect::route('commandes.index');
-		}
 
-		return Redirect::route('commandes.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**

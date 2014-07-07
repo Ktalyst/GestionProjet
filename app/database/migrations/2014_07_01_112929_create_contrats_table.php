@@ -16,7 +16,7 @@ class CreateContratsTable extends Migration {
 			$table->increments('id');
 			$table->string('nom');
 			$table->string('code');
-			$table->integer('ccontact_id')->unsigned();
+			$table->integer('contact_id')->unsigned();
 			$table->timestamps();
 		});
 	}

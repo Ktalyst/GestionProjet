@@ -5,6 +5,16 @@ class Commande extends Eloquent {
 
 	public static $rules = array(
 		'code' => 'required',
-		'id_contrat' => 'required'
+		'contrat_id' => 'required'
 	);
+
+	public function contrat()
+	{
+		return $this->belongsTo('Contrat');
+	}
+
+	public function items()
+	{
+		return $this->hasMany('Item', 'commande_id');
+	}
 }

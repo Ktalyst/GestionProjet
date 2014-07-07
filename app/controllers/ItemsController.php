@@ -9,9 +9,10 @@ class ItemsController extends BaseController {
 	 */
 	protected $item;
 
-	public function __construct(Item $item)
+	public function __construct(Item $item, Commande $commande)
 	{
 		$this->item = $item;
+		$this->commande = $commande;
 	}
 
 	/**
@@ -33,7 +34,7 @@ class ItemsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('items.create');
+		return View::make('items.create', array('select' => $this->commande->all()->lists('code', 'id')));
 	}
 
 	/**
@@ -50,7 +51,7 @@ class ItemsController extends BaseController {
 		{
 			$this->item->create($input);
 
-			return Redirect::route('items.index');
+			return Redirect::route('items.create');
 		}
 
 		return Redirect::route('items.create')

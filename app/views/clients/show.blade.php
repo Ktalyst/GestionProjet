@@ -13,7 +13,8 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Clients</li>
+        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> Customers</a></li>
+        <li class="active">Show</li>
 	</ol>
 </section>
 
@@ -63,6 +64,10 @@
                         @endif
 
                     </div>
+                    <div class="box-footer">
+                    <a href="{{ URL::route('clients.index') }}" class = "btn btn-info">Back</a>
+                </div>
+                </div>
 			</div>
 		</section>			
 	</div>

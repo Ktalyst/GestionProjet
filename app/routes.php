@@ -23,7 +23,7 @@ Route::group(array('before' => 'admin'), function()
 	Route::get('admin', array('as' => 'admin', function(){return View::make('backend.accueil');}));
 });
 
-Route::group(array('before' => 'manager'), function()
+Route::group(array('before' => 'auth'), function()
 {
 	Route::resource('clients', 'ClientsController');
 	Route::resource('contacts', 'ContactsController');
@@ -31,4 +31,11 @@ Route::group(array('before' => 'manager'), function()
 	Route::resource('commandes', 'CommandesController');
 	Route::resource('items', 'ItemsController');
 	Route::resource('servicerequests', 'ServicerequestsController');
+	Route::get('api/dropdown','ApiController@getIndex');
+});
+
+
+App::missing(function($exception)
+{
+    return Response::make('error.404');
 });

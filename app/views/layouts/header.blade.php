@@ -29,7 +29,7 @@
                     <li class="user-footer">
                         @if (Auth::user()->statut == 'admin')
                         <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat">Admin</a>
+                            <a href="{{ URL::route('admin') }}" class="btn btn-default btn-flat">Admin</a>
                         </div>
                         @endif
                         <div class="pull-right">

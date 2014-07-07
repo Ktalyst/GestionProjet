@@ -1,32 +1,43 @@
-!DOCTYPE html
-html lang=fr
-  head
-    meta charset=utf-8
-    titleMon beau sitetitle
+@extends('layouts.scaffold')
 
-    {{ HTMLstyle('httpfonts.googleapis.comcssfamily=Andada') }}
-    {{ HTMLstyle('assetscssbootstrap.min.css') }}
+@include('layouts.header')
 
-	style
-	  .center {text-align center; margin-left auto; margin-right auto; margin-bottom auto; margin-top auto;}
-	style
+@include('layouts.sidebar')
 
-  head
+@section('main')
+                <section class="content-header">
+                    <h1>
+                        500 Error Page
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="#">Examples</a></li>
+                        <li class="active">500 error</li>
+                    </ol>
+                </section>
 
-  body
+                <!-- Main content -->
+                <section class="content">
 
-	titleErreur 403title
-	body
-	  div class=hero-unit center
-	  	hr
-	    h1Page interdite smallfont face=Tahoma color=redErreur 403fontsmallh1
-	    br
-	    pLa page que vous demandez est protégée, vous ne disposez pas des droits suffisants pour la consulter.p
-	    pUtilisez votre bouton de navigation pour retrouver la page où vous étiez précédemment.p
-	    pbVous pouvez aussi juste cliquer sur ce petit bouton bp
-	    hr
-	    a href={{ url() }} class=btn btn-large btn-infoi class=icon-home icon-whitei Chemin vers l'accueila
-	  	hr
-	  div
-  body
-html  
+                    <div class="error-page">
+                        <h2 class="headline">500</h2>
+                        <div class="error-content">
+                            <h3><i class="fa fa-warning text-yellow"></i> Oops! Something went wrong.</h3>
+                            <p>
+                                We will work on fixing that right away.
+                                Meanwhile, you may <a href='../../index.html'>return to dashboard</a> or try using the search form.
+                            </p>
+                            <form class='search-form'>
+                                <div class='input-group'>
+                                    <input type="text" name="search" class='form-control' placeholder="Search"/>
+                                    <div class="input-group-btn">
+                                        <button type="submit" name="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div><!-- /.input-group -->
+                            </form>
+                        </div>
+                    </div><!-- /.error-page -->
+
+                </section><!-- /.content -->
+
+@stop

@@ -8,33 +8,27 @@
 
 <section class="content-header">
 	<h1>
-		Clients
+		Customers
 		<small>List</small>
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Clients</li>
+		<li class="active"><a href="#"> customers</a></li>
 	</ol>
 </section>
 
 <section class="content">
 	<div class="row">
-		<div class="col-xs-12 connectedSortable">
-
-		</div>
-	</div>
-
-	<div class="row">
 		<!-- Left col -->
 		<section class="col-xs-12 connectedSortable"> 
 			<div class="box box-primary">
 				<div class="box-header">
-					<div class="box-title">All clients</div>
+					<div class="box-title">All customers</div>
 					<div class="pull-right box-tools">
 						<div class="btn-group">
 							<button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
 							<ul class="dropdown-menu pull-right" role="menu">
-								<li><a href="{{ URL::route('clients.create') }}">Add new clients</a></li>
+								<li><a href="{{ URL::route('clients.create') }}">Add new customer</a></li>
 							</ul>
 						</div>
 					</div>
@@ -56,7 +50,8 @@
 											{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('clients.destroy', $client->id))) }}
 											{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 											{{ Form::close() }}
-											{{ link_to_route('clients.edit', 'Edit', array($client->id), array('class' => 'btn btn-info')) }}
+											{{ link_to_route('clients.edit', 'Edit', array($client->id), array('class' => 'btn btn-warning')) }}
+											{{ link_to_route('clients.show', 'Show', array($client->id), array('class' => 'btn btn-info')) }}
 										</td>
 								</tr>
 								@endforeach

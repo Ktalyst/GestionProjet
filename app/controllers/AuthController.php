@@ -1,25 +1,25 @@
 <?php
- 
+
 class AuthController extends BaseController {
- 
+
     public function __construct()
-  {
+    {
         $this->beforeFilter('auth', array('only' => 'getLogout'));
         $this->beforeFilter('guest', array('except' => 'getLogout'));
         $this->beforeFilter('csrf', array('on' => 'post'));
-  }
- 
-  /**
+    }
+
+    /**
     * Affiche le formulaire de login
-    *
+     *
     * @return View
     */
     protected function createView($name)
     {
-        return View::make($name, array('actif' => -1)); 
+        return View::make($name); 
     }  
- 
-  /**
+
+    /**
     * Affiche le formulaire de login
     *
     * @return View
@@ -28,8 +28,8 @@ class AuthController extends BaseController {
     {
         return View::make('auth.login');
     }
- 
-  /**
+
+    /**
     * Affiche le formulaire d'inscription
     *
     * @return View
@@ -37,9 +37,9 @@ class AuthController extends BaseController {
     public function getInscription()
     {
         return $this->createView('auth.inscription');
-    }
- 
-  /**
+    }   
+
+    /**
     * Traitement du formulaire de login
     *
     * @return Redirect
@@ -47,30 +47,29 @@ class AuthController extends BaseController {
     public function postLogin()
     {
         $user = array('username' => Input::get('username'), 'password' => Input::get('password'));
-        if (Auth::attempt($user, true)) {
-            return Redirect::intended('/')->with('flash_notice', 'Vous avez été correctement connecté avec le pseudo ' . Auth::user()->username);
+        if (Auth::attempt($user, true)) 
+        {
+            return Redirect::intended('/')->with('flash_notice', 'You have been successfully connected with the login' . Auth::user()->username);
         }
-        return Redirect::to('guest/login')->with('flash_error', 'Pseudo ou mot de passe non correct !')->withInput();       
+        return Redirect::to('guest/login')->with('flash_error', 'Username or password not correct!')->withInput();       
     }
- 
-  /**
+
+    /**
     * Traitement du formulaire d'inscription
     *
     * @return Redirect
     */
     public function postInscription()
     {
-
-            $user = new User; 
-            $user->username = Input::get('username'); 
-            $user->email = Input::get('email'); 
-            $user->password = Hash::make(Input::get('password')); 
-            $user->save(); 
-            return Redirect::route('accueil')->with('flash_notice', 'Votre compte a été créé.'); 
-
+        $user = new User; 
+        $user->username = Input::get('username'); 
+        $user->email = Input::get('email'); 
+        $user->password = Hash::make(Input::get('password')); 
+        $user->save(); 
+        return Redirect::route('accueil')->with('flash_notice', 'Your account has been created.'); 
     }  
-    
-  /**
+
+    /**
     * Effectue le logout
     *
     * @return Redirect
@@ -78,7 +77,7 @@ class AuthController extends BaseController {
     public function getLogout()
     {
         Auth::logout(); 
-        return Redirect::route('accueil')->with('flash_notice', 'Vous avez été correctement déconnecté.');
+        return Redirect::route('accueil')->with('flash_notice', 'You have been successfully logged out.');
     }
- 
+
 }

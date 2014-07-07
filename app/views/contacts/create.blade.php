@@ -19,19 +19,27 @@
 </section>
 <section class="content">
     <div class="row">
-        <div class="col-xs-12 connectedSortable">
-
-        </div>
-    </div>
-    <div class="row">
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
                 <div class="box-header">
                     <div class="box-title">Create contact</div>
                 </div>   
-                {{ Form::open(array('route' => 'contacts.store')) }}
                 <div class="box-body">
-                    {{ Form::bootselect('client_id', 'Client :', $select) }}
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+                        </ul>
+                    </div>
+                    @endif
+                    {{ Form::open(array('route' => 'contacts.store')) }}
+                    {{ Form::label('Client:') }} 
+                    <select class="form-control" id="client_id" name="client_id">
+                        <option selected disabled>Please Select</option>
+                        @foreach ($select as $key => $client)
+                            <option value={{{ $key }}}>{{{ $client }}}</option>
+                        @endforeach
+                    </select>
                     <div class="form-group">
                         {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }}
                         {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}

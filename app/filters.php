@@ -39,7 +39,7 @@ Route::filter('auth', function()
 	{
 		if (Request::ajax())
 		{
-			return Response::make('Raté auth', 401);
+			return Response::make('error.500');
 		}
 		else
 		{
@@ -50,13 +50,9 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if(!Auth::user()->statut == 'admin') return Response::make('Raté admin', 401);
+	if(!Auth::user()->statut == 'admin') return Redirect::guest('/accueil');
 });
 
-Route::filter('manager', function()
-{
-	if(!Auth::user()->statut == 'manager' || !Auth::user()->statut == 'admin') return Response::make('Raté manager', 401);
-});
 
 
 Route::filter('auth.basic', function()

@@ -21,7 +21,7 @@
                         {{ Form::password('password', $attributes = array('class' => 'form-control', 'placeholder' => 'password')) }}
                     </div>          
                     <div class="form-group">
-                        {{ Form::checkbox('remember_me') }} Remember me
+                        <input name="remember_me" type="checkbox" id="remember_me">Remember me
                     </div>
                 </div>
                 <div class="footer">                      
