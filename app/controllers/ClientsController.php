@@ -89,7 +89,7 @@ class ClientsController extends BaseController {
 			return Redirect::route('clients.index');
 		}
 
-		return View::make('clients.edit', compact('client'));
+		return View::make('clients.edit', compact('client'), array('contacts' => $client->contacts));
 	}
 
 	/**
@@ -106,7 +106,9 @@ class ClientsController extends BaseController {
 		if ($validation->passes())
 		{
 			$client = $this->client->find($id);
-			$client->update($input);
+			$nom = Input::get('nom');
+			$client->nom = $nom;
+			$client->save();
 
 			return Redirect::route('clients.show', $id);
 		}

@@ -52,7 +52,7 @@ class ContactsController extends BaseController {
 		{
 			$this->contact->create($input);
 
-			return Redirect::route('contacts.index');
+			return Redirect::route('contacts.create');
 		}
 
 		return Redirect::route('contacts.create')
@@ -69,12 +69,8 @@ class ContactsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$contact = $this->contact->findOrFail($id);
-
-		return View::make('contacts.show', array(
-			'contact' => $contact,
-			'client' => $contact->client->nom
-		));
+		$this->contact->find($id)->delete();
+		return Redirect::to(URL::previous());
 	}
 
 	/**
@@ -114,7 +110,7 @@ class ContactsController extends BaseController {
 			$contact = $this->contact->find($id);
 			$contact->update($input);
 
-			return Redirect::route('contacts.show', $id);
+			return Redirect::route('clients.edit', $contact->client->id);
 		}
 
 		return Redirect::route('contacts.edit', $id)
@@ -132,7 +128,6 @@ class ContactsController extends BaseController {
 	public function destroy($id)
 	{
 		$this->contact->find($id)->delete();
-		return true;
 	}
 
 }

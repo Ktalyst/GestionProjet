@@ -47,11 +47,8 @@ class AuthController extends BaseController {
     public function postLogin()
     {
         $user = array('username' => Input::get('username'), 'password' => Input::get('password'));
-        if (Auth::attempt($user, Input::get('souvenir'))) {
-            if(Auth::user()->role == 'admin') {
-                return Redirect::intended('admin'); }
-            return Redirect::intended('/')
-                ->with('flash_notice', 'Vous avez été correctement connecté avec le pseudo ' . Auth::user()->username);
+        if (Auth::attempt($user, true)) {
+            return Redirect::intended('/')->with('flash_notice', 'Vous avez été correctement connecté avec le pseudo ' . Auth::user()->username);
         }
         return Redirect::to('guest/login')->with('flash_error', 'Pseudo ou mot de passe non correct !')->withInput();       
     }
@@ -63,16 +60,14 @@ class AuthController extends BaseController {
     */
     public function postInscription()
     {
-        $v = User::validate(Input::all()); 
-        if ($v->passes()) {
+
             $user = new User; 
             $user->username = Input::get('username'); 
             $user->email = Input::get('email'); 
             $user->password = Hash::make(Input::get('password')); 
             $user->save(); 
             return Redirect::route('accueil')->with('flash_notice', 'Votre compte a été créé.'); 
-        }
-        return Redirect::to('guest/inscription')->withErrors($v)->withInput(); 
+
     }  
     
   /**

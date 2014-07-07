@@ -1,47 +1,40 @@
-@extends('layouts.scaffold')
- 
-@include('layouts.navigation')
-
-@section('main')
-	<div class="col-md-12">
-		Pour entrer un nouveau mot de passe veuillez remplir ce formulaire :
-	</div>
-	<br>
-	<div class="row col-md-12">
-		@if (Session::has('error'))
-			<div class="col-md-9">
-        <div class="alert alert-danger">
-    			{{ Session::get('error') }}
-				</div>
+<!DOCTYPE html>
+<html class="bg-black">
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE | Remind</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {{ HTML::style('css/bootstrap.min.css') }}
+        {{ HTML::style('css/font-awesome.min.css') }}
+        {{ HTML::style('css/AdminLTE.css') }}
+    </head>
+    <body class="bg-black">
+        <div class="form-box" id="login-box">
+            <div class="header">New password</div>
+			<div class="col-md-12">
+				Pour entrer un nouveau mot de passe veuillez remplir ce formulaire :
 			</div>
-		@endif
-		<div class="col-md-9">
-	    {{ Form::open(array('url' => 'remind/reset/'.$token, 'method' => 'POST', 'class' => 'form-horizontal well')) }}
+	    	{{ Form::open(array('url' => 'remind/reset/'.$token, 'method' => 'POST')) }}
 			{{ Form::hidden('token', $token)}}
-			<div class="form-group">
-				{{ Form::label('email', 'Mail :', array('class' => 'col-md-4 control-label')) }}
-				<div class="col-md-8">
+			<div class="body bg-gray">
+				<div class="form-group">
 					{{ Form::text('email', '', $attributes = array('class' => 'form-control')) }}
 				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('password', 'Mot de passe :', array('class' => 'col-md-4 control-label')) }}
-				<div class="col-md-8">
+				<div class="form-group">
 					{{ Form::password('password', $attributes = array('class' => 'form-control')) }}
 				</div>
-			</div>
-			<div class="form-group">
-				{{ Form::label('password_confirmation', 'Confirmation passe :', array('class' => 'col-md-4 control-label')) }}
-				<div class="col-md-8">
+				<div class="form-group">
 					{{ Form::password('password_confirmation', $attributes = array('class' => 'form-control')) }}
 				</div>
 			</div>
-      <div class="form-group">
-          <div class="col-md-offset-4 col-md-8">
+      		<div class="footer">
               {{ Form::submit('Envoyer', array('class' => 'btn btn-success')) }}
-          </div>
-      </div>
+          	</div>
 			{{ Form::close()}}
 		</div>
 	</div>
-@stop
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        {{ HTML::script('js/bootstrap.min.js') }}
+
+    </body>
+</html>

@@ -9,9 +9,11 @@ class ContratsController extends BaseController {
 	 */
 	protected $contrat;
 
-	public function __construct(Contrat $contrat)
+	public function __construct(Contrat $contrat, Contact $contact, Client $client)
 	{
 		$this->contrat = $contrat;
+		$this->contact = $contact;
+		$this->client = $client;
 	}
 
 	/**
@@ -33,7 +35,9 @@ class ContratsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('contrats.create');
+		return View::make('contrats.create', 
+			array('selectcontact' => $this->contact->all()->lists('nom', 'id'), 
+				'selectclient' => $this->client->all()->lists('nom', 'id')));
 	}
 
 	/**
@@ -44,19 +48,13 @@ class ContratsController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Contrat::$rules);
 
-		if ($validation->passes())
-		{
 			$this->contrat->create($input);
 
 			return Redirect::route('contrats.index');
-		}
 
-		return Redirect::route('contrats.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+
+
 	}
 
 	/**

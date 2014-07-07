@@ -1,50 +1,29 @@
-@extends('layouts.scaffold')
- 
-@include('layouts.navigation')
-
-@section('main')
-
-<br>
-<div class="row col-md-12">
-	<h3 class="col-md-12">
-		Nouveau mot de passe
-	</h3>
-	@if (!Session::has('flash_notice'))
-		<div class="col-md-12">
-			Il semblerait que vous ayez oublié votre mot de passe. Ne vous affolez pas, nous allons vous donner la possibilité d'en créer un nouveau. Veuillez entrer dans ce formulaire l'adresse mail que vous avez utilisée pour votre inscription :
-		</div>
-	@endif
-	<br />
-	@if (Session::has('error'))
-    <div class="col-md-8">
-      <div class="alert alert-danger">
-				{{ Session::get('error') }}         
-      </div>
-    </div>
-	@endif
-	@if (Session::has('status'))
-		<div class="col-md-8">
-			<div class="alert alert-success">
-				{{ Session::get('status') }}
-			</div>
-		</div>
-	@else
-		<div class="col-md-8">
-      {{ Form::open(array('url' => 'remind/remind', 'method' => 'POST', 'class' => 'form-horizontal well')) }}
-			<div class="form-group {{ $errors->has('email') ? 'error' : '' }}">
-				{{ Form::label('email', 'Mail :', array('class' => 'col-md-2 control-label')) }}
-				<div class="col-md-10">
-					{{ Form::text('email', '', $attributes = array('class' => 'form-control')) }}
-				</div>
-			</div>
-      <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
-              {{ Form::submit('Envoyer', array('class' => 'btn btn-success')) }}
-          </div>
-      </div>
+<!DOCTYPE html>
+<html class="bg-black">
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE | Remind</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {{ HTML::style('css/bootstrap.min.css') }}
+        {{ HTML::style('css/font-awesome.min.css') }}
+        {{ HTML::style('css/AdminLTE.css') }}
+    </head>
+    <body class="bg-black">
+        <div class="form-box" id="login-box">
+            <div class="header">New password</div>
+      		{{ Form::open(array('url' => 'remind/remind', 'method' => 'POST')) }}
+            <div class="body bg-gray">
+                <div class="form-group  {{ $errors->has('email') ? 'error' : '' }}">
+                    {{ Form::text('email', '', $attributes = array('class' => 'form-control', 'placeholder' => 'E-mail')) }}
+                </div> 		
+            </div>
+      		<div class="footer"> 
+              	{{ Form::submit('Send', array('class' => 'btn bg-olive btn-block')) }}
+          	</div>
 			{{ Form::close()}}
 		</div>
-	@endif
-</div>
-@stop
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        {{ HTML::script('js/bootstrap.min.js') }}
 
+    </body>
+</html>

@@ -1,56 +1,63 @@
 @extends('layouts.scaffold')
 
-@include('layouts.navigation')
+@include('layouts.header')
+
+@include('layouts.sidebar')
 
 @section('main')
 
-<div class="row">
-    <div class="col-md-10 col-md-offset-2">
-        <h1>Create Contrat</h1>
-
-        @if ($errors->any())
-        	<div class="alert alert-danger">
-        	    <ul>
-                    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-                </ul>
-        	</div>
-        @endif
+<section class="content-header">
+    <h1>
+        Contrats
+        <small>Contrat</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ URL::route('contrats.index') }}"><i class="fa fa-list"></i> List</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <section class="col-xs-12 connectedSortable"> 
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="box-title">Create contrat</div>
+                </div>     
+                {{ Form::open(array('route' => 'contrats.store')) }}
+                <div class="box-body">
+                    <div class="form-group">
+                    {{ Form::bootselect('client_id', 'Client :', $selectclient) }}
+                    </div>
+                    <div class="form-group">
+                    {{ Form::bootselect('contact_id', 'Contact :', $selectcontact) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }} 
+                        {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('code', 'Code:', array('class'=>'control-label')) }}
+                        {{ Form::text('code', Input::old('code'), array('class'=>'form-control', 'placeholder'=>'Code')) }}
+                    </div>
+                </div>
+                <div class="box-footer">
+                    {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
+                </div>
+                {{ Form::close() }}
+            </div>
+        </section>
     </div>
-</div>
-
-{{ Form::open(array('route' => 'contrats.store', 'class' => 'form-horizontal')) }}
-
-        <div class="form-group">
-            {{ Form::label('nom', 'Nom:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('code', 'Code:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('code', Input::old('code'), array('class'=>'form-control', 'placeholder'=>'Code')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('id_contact', 'Id_contact:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'id_contact', Input::old('id_contact'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-
-<div class="form-group">
-    <label class="col-sm-2 control-label">&nbsp;</label>
-    <div class="col-sm-10">
-      {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
-    </div>
-</div>
-
-{{ Form::close() }}
-
+</section>
 @stop
 
-
+@section('script')
+  <script type="text/javascript">
+    $(document).ready(function(){
+          $('#client_id').change(function()
+            {
+                alert('changement de la valeur ' + $(this).attr('value'));
+            });
+    });
+  </script>
+@stop

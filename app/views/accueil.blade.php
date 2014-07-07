@@ -1,27 +1,29 @@
 @extends('layouts.scaffold')
- 
-@include('layouts.navigation')
- 
+
+@include('layouts.header')
+
+@include('layouts.sidebar')
+
 @section('main')
-    <div class="col-md-6">
-      <h2>Titre</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <a href="#" class="btn btn-default">Lire la suite <span class="glyphicon glyphicon-play"></span></a>
+<section class="content-header">
+    <h1>
+        Dashboard
+        <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 connectedSortable">
+
+        </div>
     </div>
-    <div class="col-md-6">
-      <h2>Titre</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <a href="#" class="btn btn-default">Lire la suite <span class="glyphicon glyphicon-play"></span></a>
-    </div>
-    <div class="col-md-6">
-      <h2>Titre</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <a href="#" class="btn btn-default">Lire la suite <span class="glyphicon glyphicon-play"></span></a>
-    </div>
-    <div class="col-md-6">
-      <h2>Titre</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <a href="#" class="btn btn-default">Lire la suite <span class="glyphicon glyphicon-play"></span></a>
-    </div>
+
  
+
+</section><!-- /.content -->
 @stop

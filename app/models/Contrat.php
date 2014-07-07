@@ -8,4 +8,9 @@ class Contrat extends Eloquent {
 		'code' => 'required',
 		'id_contact' => 'required'
 	);
+
+	public function contact()
+	{
+		return $this->belongsTo('Contact');
+	}
 }

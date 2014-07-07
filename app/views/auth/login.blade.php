@@ -1,52 +1,52 @@
-@extends('layouts.scaffold')
- 
-@section('main')
- 
-    <div class="col-md-12">
-        Pour vous connecter au site veuillez entrer votre pseudo et votre mot de passe dans le formulaire ci-dessous :
-    </div>
-    <br>
-    <div class="row col-md-12">
-        @if (Session::has('flash_error'))
-            <div class="col-md-7">
-                <div class="alert alert-danger">
-                    {{ Session::get('flash_error') }}
+<!DOCTYPE html>
+<html class="bg-black">
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE | Log in</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {{ HTML::style('css/bootstrap.min.css') }}
+        {{ HTML::style('css/font-awesome.min.css') }}
+        {{ HTML::style('css/AdminLTE.css') }}
+    </head>
+    <body class="bg-black">
+
+        <div class="form-box" id="login-box">
+            <div class="header">Sign In</div>
+            {{ Form::open(array('url' => 'auth/login', 'method' => 'POST')) }}
+                <div class="body bg-gray">
+                    <div class="form-group">
+                        {{ Form::text('username', '', $attributes = array('class' => 'form-control', 'placeholder' => 'username')) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::password('password', $attributes = array('class' => 'form-control', 'placeholder' => 'password')) }}
+                    </div>          
+                    <div class="form-group">
+                        {{ Form::checkbox('remember_me') }} Remember me
+                    </div>
                 </div>
-            </div>
-        @endif
-        <div class="col-md-7">
-            {{ Form::open(array('url' => 'auth/login', 'method' => 'POST', 'class' => 'form-horizontal well')) }}
-            <div class="form-group">
-                {{ Form::label('username', 'Pseudo :', array('class' => 'col-md-3 control-label')) }}
-                <div class="col-md-9">
-                    {{ Form::text('username', '', $attributes = array('class' => 'form-control')) }}
+                <div class="footer">                      
+                    {{ Form::submit('Sign me in', array('class' => 'btn bg-olive btn-block')) }}                                         
+                    
+                    <p>{{ link_to('remind/remind', 'I forgot my password') }}</p>
+                    
+                    {{ link_to('auth/inscription', 'Register a new membership') }}
                 </div>
+            </form>
+
+            <div class="margin text-center">
+                <span>Sign in using social networks</span>
+                <br/>
+                <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
+                <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
+                <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
+
             </div>
-            <div class="form-group">
-                {{ Form::label('password', 'Mot de passe :', array('class' => 'col-md-3 control-label')) }}
-                <div class="col-md-9">
-                    {{ Form::password('password', $attributes = array('class' => 'form-control')) }}
-                </div>
-            </div>
-            <div class="checkbox pull-right">
-                {{ Form::checkbox('souvenir') }}Se rappeler de moi
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-9">
-                    {{ Form::submit('Envoyer', array('class' => 'btn btn-success')) }}
-                </div>
-            </div>
-            {{ Form::close()}}
         </div>
-        <div class="col-md-5">
-            <p>
-                {{ link_to('remind/remind', 'J\'ai oublié mon mot de passe...', array('class' => 'btn btn-success')) }}
-            </p>
-        </div>
-    </div>
-    <div class="col-md-12">
-        Si vous n'avez pas encore de compte vous pouvez en créer un en cliquant sur ce bouton :
-        {{ link_to('auth/inscription', 'Je m\'inscris !', array('class' => 'btn btn-info')) }}
-    </div>
-     
-@stop
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        {{ HTML::script('js/bootstrap.min.js') }}
+  
+
+    </body>
+</html>

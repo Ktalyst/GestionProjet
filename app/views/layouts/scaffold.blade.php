@@ -1,54 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            {{ HTML::style('//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css') }}
-            {{ HTML::style('//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css') }}
-            {{ HTML::style('http://fonts.googleapis.com/css?family=Imprima') }}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Stride | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    {{ HTML::style('css/bootstrap.min.css'); }}
+    {{ HTML::style('css/font-awesome.min.css'); }}
+    {{ HTML::style('css/ionicons.min.css'); }}
+    {{ HTML::style('css/morris/morris.css'); }}
+    {{ HTML::style('css/jvectormap/jquery-jvectormap-1.2.2.css'); }}
+    {{ HTML::style('css/fullcalendar/fullcalendar.css'); }}
+    {{ HTML::style('css/daterangepicker/daterangepicker-bs3.css'); }}
+    {{ HTML::style('css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'); }}
+    {{ HTML::style('css/AdminLTE.css'); }}
+    {{ HTML::style('css/datatables/dataTables.bootstrap.css'); }}
 </head>
-
-<body>
-    <div class="container">
-        <header class="jumbotron" id="entete">
-            <h1>Gestion de projet</h1>
-        </header>
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Menu</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    @yield('navigation')
-                </ul>
-                {{ Form::open(array('url' => 'find', 'method' => 'POST', 'class' => 'navbar-form navbar-left pull-right')) }}
-                {{ Form::text('find', '', array('class' => 'form-group form-control', 'placeholder' => 'Recherche')) }}
-                {{ Form::close() }}
-            </div>
-        </nav>
-        <div class="row">
-            <div class="col-md-12">
-                @if (Session::has('message'))
-                <div class="flash alert">
-                    <p>{{ Session::get('message') }}</p>
-                </div>
-                @endif
-
-                @yield('main')
-            </div>
-        </div>
-        <footer>
-            <em>© 2014</em>
-        </footer>
+<body class="skin-blue">
+    <header class="header">
+        @yield('header')
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <aside class="left-side sidebar-offcanvas">
+            @yield('sidebar')
+        </aside>
+        <aside class="right-side">
+            @yield('main')
+        </aside>
     </div>
-@yield('scripts')
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    {{ HTML::script('js/jquery-ui-1.10.3.min.js'); }}
+    {{ HTML::script('js/bootstrap.min.js'); }}
+     @yield('script')
+    {{ HTML::script('js/plugins/datatables/jquery.dataTables.js'); }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    {{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js'); }}
+    {{ HTML::script('js/plugins/morris/morris.min.js'); }}
+    {{ HTML::script('js/plugins/sparkline/jquery.sparkline.min.js'); }}
+    {{ HTML::script('js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'); }}
+    {{ HTML::script('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'); }}
+    {{ HTML::script('js/plugins/fullcalendar/fullcalendar.min.js'); }}
+    {{ HTML::script('js/plugins/jqueryKnob/jquery.knob.js'); }}
+    {{ HTML::script('js/plugins/daterangepicker/daterangepicker.js'); }}
+    {{ HTML::script('js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'); }}
+    {{ HTML::script('js/plugins/iCheck/icheck.min.js'); }}
+    {{ HTML::script('js/AdminLTE/app.js'); }}
+    {{ HTML::script('js/AdminLTE/dashboard.js'); }}
+    {{ HTML::script('js/AdminLTE/demo.js'); }}
 </body>
 </html>
