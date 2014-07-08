@@ -50,10 +50,18 @@ class ContratsController extends BaseController {
 		$contact = Input::get('contact_id');
 		$nom = Input::get('nom');
 		$code = Input::get('code');
-		$input=(array("nom" => $nom, "code" => $code, 'contact_id' => $contact));
-		$this->contrat->create($input);
-		return Redirect::route('contrats.index');
 
+		$input=(array("nom" => $nom, "code" => $code, 'contact_id' => $contact));
+		$validation = Validator::make($input, Contrat::$rules);
+		if ($validation->passes())
+		{
+			$this->contrat->create($input);
+			return Redirect::route('contrats.index');
+		}
+		return Redirect::route('contrats.create')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
 	}
 
 	/**

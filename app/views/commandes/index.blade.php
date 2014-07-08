@@ -58,7 +58,8 @@
 									{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('commandes.destroy', $commande->id))) }}
 									{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 									{{ Form::close() }}
-									{{ link_to_route('commandes.edit', 'Edit', array($commande->id), array('class' => 'btn btn-info')) }}
+									{{ link_to_route('commandes.edit', 'Edit', array($commande->id), array('class' => 'btn btn-warning')) }}
+									{{ link_to_route('commandes.show', 'Show', array($commande->id), array('class' => 'btn btn-info')) }}
 								</td>
 							</tr>
 							@endforeach

@@ -8,7 +8,7 @@
 
 <section class="content-header">
     <h1>
-        Clients
+        Customer
         <small>Edit</small>
     </h1>
     <ol class="breadcrumb">
@@ -22,7 +22,7 @@
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
                 <div class="box-header">
-                    <div class="box-title">Edit clients</div>
+                    <div class="box-title">Edit customer</div>
                     <div class="pull-right box-tools">
                         <div class="btn-group">
                             <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
@@ -48,41 +48,55 @@
                     </div>
 
                     <div class="box-footer">
-                        {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-                        {{ link_to_route('clients.show', 'Cancel', $client->id, array('class' => 'btn btn-lg btn-default')) }}
+                        {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                        {{ link_to_route('clients.show', 'Cancel', $client->id, array('class' => 'btn btn-default')) }}
                     </div>
                     {{ Form::close() }}
                     <div class="box-body table-responsive">
                         @if ($contacts->count())
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($contacts as $contact)
-                                <tr>
-                                    <td>{{{ $contact->nom }}}</td>
-                                    <td>
-                                        {{ link_to_route('contacts.destroy', 'Delete', array($contact->id), array('class' => 'btn btn-danger')) }}
-                                        {{ link_to_route('contacts.edit', 'Edit', array($contact->id), array('class' => 'btn btn-info')) }}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        @else
-                        There are no contacts
-                        @endif
-
+                        <div class="box-group" id="accordeon">
+                            <div class="panel box box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">                           
+                                        <i class="fa fa-plus-square-o"></i><span> Contacts</span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse in" style="height: auto;">
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($contacts as $contact)
+                                            <tr>
+                                                <td>{{{ $contact->nom }}}</td>
+                                                <td>
+                                                    {{ link_to_route('contacts.destroy', 'Delete', array($contact->id), array('class' => 'btn btn-danger')) }}
+                                                    {{ link_to_route('contacts.edit', 'Edit', array($contact->id), array('class' => 'btn btn-info')) }}
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                            @else
+                            There are no contacts
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

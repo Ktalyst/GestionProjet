@@ -6,7 +6,7 @@ class Contrat extends Eloquent {
 	public static $rules = array(
 		'nom' => 'required',
 		'code' => 'required',
-		'id_contact' => 'required'
+		'contact_id' => 'required'
 	);
 
 	public function contact()

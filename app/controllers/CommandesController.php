@@ -121,4 +121,17 @@ class CommandesController extends BaseController {
 		return Redirect::route('commandes.index');
 	}
 
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function imprimer($id)
+	{
+		$commande = $this->commande->find($id);
+
+		return View::make('commandes.print', compact('commande'));
+	}
+
 }

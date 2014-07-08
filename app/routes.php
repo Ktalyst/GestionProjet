@@ -32,6 +32,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('items', 'ItemsController');
 	Route::resource('servicerequests', 'ServicerequestsController');
 	Route::get('api/dropdown','ApiController@getIndex');
+	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
 });
 
 

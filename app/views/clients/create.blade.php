@@ -39,13 +39,13 @@
                     @endif
                     {{ Form::open(array('route' => 'clients.store', 'role' => 'form')) }}
                     <div class="form-group">
-                        {{ Form::label('nom', 'Name:', array('class'=>'col-md-2 control-label')) }}
+                        {{ Form::label('nom', 'Name:', array('class'=>'control-label')) }}
                         {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Enter a name')) }}
                     </div>
                 </div>
                 <div class="box-footer">
-                    {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
-                    <a href = "{{ URL::previous() }}" class = 'btn btn-lg btn-default'>Back</a>
+                    {{ Form::submit('Create', array('class' => 'btn btn-primary')) }}
+                    <a href = "{{ URL::previous() }}" class = 'btn btn-default'>Back</a>
                 </div>
                 {{ Form::close() }}
             </div>

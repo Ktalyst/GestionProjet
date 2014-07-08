@@ -47,10 +47,7 @@
 @stop
 @section('script')
 <script type="text/javascript">
-$(document).ready(function()
-    $("body").removeClass("skin-blue skin-black");
-    $("body").addClass('skin-black');
-}
+
         $(document).ready(function()
         {
             /*
@@ -83,13 +80,13 @@ $(document).ready(function()
                 {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: ''
                 },
                 /*
                     defaultView option used to define which view to show by default,
                     for example we have used agendaWeek.
                 */
-                defaultView: 'agendaWeek',
+                defaultView: 'month',
                 /*
                     selectable:true will enable user to select datetime slot
                     selectHelper will add helpers for selectable.

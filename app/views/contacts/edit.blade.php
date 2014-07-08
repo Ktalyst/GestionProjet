@@ -55,8 +55,8 @@
                     </div>
 
                     <div class="box-footer">
-                      {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-                      {{ link_to_route('contacts.show', 'Cancel', $contact->id, array('class' => 'btn btn-lg btn-default')) }}
+                      {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                      {{ link_to_route('contacts.show', 'Cancel', $contact->id, array('class' => 'btn btn-default')) }}
                   </div>
                   {{ Form::close() }}
 

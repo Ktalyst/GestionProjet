@@ -19,12 +19,6 @@
 
 <section class="content">
 	<div class="row">
-		<div class="col-xs-12 connectedSortable">
-
-		</div>
-	</div>
-
-	<div class="row">
 		<!-- Left col -->
 		<section class="col-xs-12 connectedSortable"> 
 			<div class="box box-primary">
@@ -57,7 +51,7 @@
 								<td>{{{ $contrat->nom }}}</td>
 								<td>{{{ $contrat->code }}}</td>
 								<td>{{{ $contrat->contact->nom }}}</td>
-								<td>{{{ $contrat->contact->client->nom }}}</td>
+								<td>{{{ $contrat->contact->nom }}}</td>
 								<td>
 									{{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('contrats.destroy', $contrat->id))) }}
 									{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

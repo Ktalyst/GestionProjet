@@ -124,6 +124,8 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Dollar\Generators\GeneratorsServiceProvider',
+		'Thujohn\Pdf\PdfServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider',
 	),
 
 	/*
@@ -194,6 +196,7 @@ return array(
 		'Alert' => 'Caouecs\Bootstrap3\Alert',
 		'Breadcrumb' => 'Caouecs\Bootstrap3\Breadcrumb',
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'PDF' => 'Barryvdh\DomPDF\Facade',
 	),
 
 );

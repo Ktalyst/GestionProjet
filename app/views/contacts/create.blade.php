@@ -14,6 +14,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> List</a></li>
+        <li><a href="{{ URL::previous() }}"><i class="fa fa-users"></i> Customer</a></li>
         <li class="active">Contacts</li>
     </ol>
 </section>
@@ -33,6 +34,7 @@
                     </div>
                     @endif
                     {{ Form::open(array('route' => 'contacts.store')) }}
+                    <div class="form-group">
                     {{ Form::label('Client:') }} 
                     <select class="form-control" id="client_id" name="client_id">
                         <option selected disabled>Please Select</option>
@@ -40,6 +42,7 @@
                             <option value={{{ $key }}}>{{{ $client }}}</option>
                         @endforeach
                     </select>
+                    </div>
                     <div class="form-group">
                         {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }}
                         {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
@@ -53,15 +56,14 @@
                         {{ Form::textarea('adresse', Input::old('adresse'), array('class'=>'form-control', 'rows' => '3', 'placeholder'=>'Adresse')) }}
                     </div>
                 <div class="box-footer">
-                    {{ Form::submit('Create', array('class' => 'btn btn-lg btn-primary')) }}
+                    {{ Form::submit('Create', array('class' => 'btn btn-primary')) }}
+                    <a href = "{{ URL::route('clients.index') }}" class = 'btn btn-default'>Back</a>
                 </div>
                   {{ Form::close() }}
             </div>
         </section>
     </div>
 </section>
-{{ link_to_route('clients.index', 'Go Back', array('class' => 'btn btn-info')) }}
-
 @stop
 
 

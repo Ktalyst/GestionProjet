@@ -42,11 +42,15 @@
 								<td>{{{ $item->montant }}}</td>
 								<td>{{{ $item->description }}}</td>
 							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
 				<div class="box-footer">
+					{{ link_to_route('print', 'Print', array($commande->id), array('class' => 'btn btn-info')) }}
+					{{ link_to_route('items.edit', 'Edit', array($item->id), array('class' => 'btn btn-info')) }}
 					<a href="{{ URL::previous() }}" class="btn btn-info">Back</a>
+
 				</div>
 			</div>
 		</section>			

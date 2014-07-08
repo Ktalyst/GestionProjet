@@ -13,7 +13,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ URL::route('contrats.index') }}"><i class="fa fa-list"></i> List</a></li>
+        <li><a href="{{ URL::route('contrats.index') }}"><i class="fa fa-list"></i> Contrat</a></li>
         <li class="active">Create</li>
     </ol>
 </section>
@@ -28,7 +28,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         {{ Form::label('Contact:') }} 
-                        {{ Form::select('contact_id', $select, Input::old('contact_id')) }}
+                        {{ Form::select('contact_id', $select, Input::old('contact_id'), array('class'=>'form-control')) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }}
@@ -44,8 +44,8 @@
 
 
                     <div class="box-footer">
-                      {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-                      {{ link_to_route('contrats.show', 'Cancel', $contrat->id, array('class' => 'btn btn-lg btn-default')) }}
+                      {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                      {{ link_to_route('contrats.show', 'Cancel', $contrat->id, array('class' => 'btn btn-default')) }}
 
                   </div>
               </div>

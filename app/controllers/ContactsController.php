@@ -45,13 +45,12 @@ class ContactsController extends BaseController {
 	 */
 	public function store()
 	{
+		$contacts = $this->contact->all();
 		$input = Input::all();
 		$validation = Validator::make($input, Contact::$rules);
-
 		if ($validation->passes())
 		{
 			$this->contact->create($input);
-
 			return Redirect::route('contacts.create');
 		}
 
