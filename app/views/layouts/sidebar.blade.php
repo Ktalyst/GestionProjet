@@ -22,6 +22,11 @@
                 <i class="glyphicon glyphicon-barcode"></i> <span>Orders</span>
             </a>
         </li>
+        <li>
+            <a href="{{ URL::route('catalogues.index') }}">
+                <i class="fa fa-book"></i> <span>Catalogues</span>
+            </a>
+        </li>
     </ul>
 </section>
 @stop

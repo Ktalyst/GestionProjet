@@ -31,6 +31,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('commandes', 'CommandesController');
 	Route::resource('items', 'ItemsController');
 	Route::resource('servicerequests', 'ServicerequestsController');
+	Route::resource('catalogues', 'CataloguesController');
+	Route::resource('servicerequesttypes', 'ServicerequesttypesController');
 	Route::get('api/dropdown','ApiController@getIndex');
 	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
 });
@@ -40,3 +42,5 @@ App::missing(function($exception)
 {
     return Response::make('error.404');
 });
+
+

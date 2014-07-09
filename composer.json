@@ -15,9 +15,7 @@
 		"behat/behat": "3.0.*@dev",
 		"behat/mink-extension": "2.0.*@dev",
 		"phpunit/phpunit": "4.3.*@dev",
-		"dollar/generators": "dev-master",
-		"thujohn/pdf": "dev-master",
-		"barryvdh/laravel-dompdf": "0.4.*"
+		"dollar/generators": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
