@@ -9,10 +9,12 @@ class CataloguesController extends BaseController {
 	 */
 	protected $Catalogue;
 
-	public function __construct(Catalogue $Catalogue, ServiceRequestType $serviceRequestType)
+	public function __construct(Catalogue $Catalogue, ServiceRequestType $serviceRequestType, ServiceRequestComplexity $serviceRequestComplexity, Service $service)
 	{
 		$this->Catalogue = $Catalogue;
 		$this->ServiceRequestType = $serviceRequestType;
+		$this->Service = $service;
+		$this->ServiceRequestComplexity = $serviceRequestComplexity;
 	}
 
 	/**
@@ -34,7 +36,9 @@ class CataloguesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('catalogues.create');
+		$servicerequestcomplexities = $this->ServiceRequestComplexity->all();
+		$servicerequesttypes = $this->ServiceRequestType->all();
+		return View::make('catalogues.create', compact('servicerequestcomplexities','servicerequesttypes'));
 	}
 
 	/**
@@ -50,14 +54,29 @@ class CataloguesController extends BaseController {
 		$this->Catalogue->create($input);
 		$catalogue = $this->Catalogue->findByNameOrFail($nom);
 
-		$nomsrt= Input::get('srtnom');
-		$codesrt = Input::get('srtcode');
-		for($i = 1; $i <= count($nomsrt); $i++)
+		$servicenom= Input::get('servicenom');
+		$servicecode = Input::get('servicecode');
+		for($i = 1; $i <= count($servicenom); $i++)
 		{
-			$inputsrt = array('nom' => $nomsrt[$i], 'code' => $codesrt[$i], 'catalogue_id' => $catalogue->id);
-			$this->ServiceRequestType->create($inputsrt);
+			$inputservice = array('nom' => $servicenom[$i], 'code' => $servicecode[$i], 'catalogue_id' => $catalogue->id);
+			$this->Service->create($inputservice);
 		}
 
+		$nomsrt = Input::get('srt');
+		foreach($nomsrt as $key => $nom)
+		{
+			$srt = $this->ServiceRequestType->findByNameOrFail($nom);
+			$srt->catalogue_id = $catalogue->id;
+			$srt->save();
+		}
+
+		$nomsrc = Input::get('src');
+		foreach($nomsrc as $key => $nom)
+		{
+			$src = $this->ServiceRequestComplexity->findByNameOrFail($nom);
+			$src->catalogue_id = $catalogue->id;
+			$src->save();
+		}
 			return Redirect::route('catalogues.index');
 	}
 
@@ -70,7 +89,6 @@ class CataloguesController extends BaseController {
 	public function show($id)
 	{
 		$Catalogue = $this->Catalogue->findOrFail($id);
-
 		return View::make('catalogues.show', compact('Catalogue'));
 	}
 
@@ -82,14 +100,21 @@ class CataloguesController extends BaseController {
 	 */
 	public function edit($id)
 	{
+		$old = Input::old();
 		$Catalogue = $this->Catalogue->find($id);
-
 		if (is_null($Catalogue))
 		{
 			return Redirect::route('catalogues.index');
 		}
-
-		return View::make('catalogues.edit', compact('Catalogue'));
+		$retour = array(
+			'catalogue' => $Catalogue,
+			'select_services' => $this->Service->all()->lists('nom', 'id'),
+			'select_complexites' => $this->ServiceRequestComplexity->all()->lists('nom', 'id'), 
+			'select_types' => $this->ServiceRequestType->all()->lists('nom', 'id'));
+		$retour['services'] = empty($old)?$Catalogue->services->toArray(): $old['services'];
+		$retour['srt'] = $Catalogue->serviceRequestTypes()->lists('nom', 'id');
+		$retour['src'] = $Catalogue->serviceRequestComplexities()->lists('nom', 'id');
+		return View::make('catalogues.edit', $retour);
 	}
 
 	/**
@@ -100,21 +125,36 @@ class CataloguesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Catalogue::$rules);
+		$catalogue = $this->Catalogue->find($id);
+		$nom = Input::get('nom');
+		$code = Input::get('code');
+		$input = array('nom' => $nom, 'code' => $code);
+		$catalogue->update($input);
 
-		if ($validation->passes())
+		$servicenom= Input::get('servicenom');
+		$servicecode = Input::get('servicecode');
+		for($i = 0; $i < count($servicenom); $i++)
 		{
-			$Catalogue = $this->Catalogue->find($id);
-			$Catalogue->update($input);
-
-			return Redirect::route('catalogues.show', $id);
+			$inputservice = array('nom' => $servicenom[$i], 'code' => $servicecode[$i], 'catalogue_id' => $catalogue->id);
+			$this->Service->create($inputservice);
 		}
 
-		return Redirect::route('catalogues.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		$nomsrt = Input::get('srt');
+		foreach($nomsrt as $key => $nom)
+		{
+			$srt = $this->ServiceRequestType->findByNameOrFail($nom);
+			$srt->catalogue_id = $catalogue->id;
+			$srt->save();
+		}
+
+		$nomsrc = Input::get('src');
+		foreach($nomsrc as $key => $nom)
+		{
+			$src = $this->ServiceRequestComplexity->findByNameOrFail($nom);
+			$src->catalogue_id = $catalogue->id;
+			$src->save();
+		}
+			return Redirect::route('catalogues.index');
 	}
 
 	/**

@@ -6,7 +6,7 @@
 
 @section('main')
 
-<h1>All Catalogues</h1>
+
 
 
 <section class="content-header">

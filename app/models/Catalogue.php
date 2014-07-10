@@ -13,15 +13,25 @@ class Catalogue extends Eloquent {
 		return $this->hasMany('serviceRequestType', 'catalogue_id');
 	}
 
+    public function services()
+    {
+        return $this->hasMany('service', 'catalogue_id');
+    }
+
+    public function serviceRequestComplexities()
+    {
+        return $this->hasMany('serviceRequestComplexity', 'catalogue_id');
+    }
+
     /**
      * Find by username, or throw an exception.
      *
      * @param string $nom The username.
      * @param mixed $columns The columns to return.
      *
-     * @throws ModelNotFoundException if no matching User exists.
+     * @throws ModelNotFoundException if no matching Catalogue exists.
      *
-     * @return User
+     * @return Catalogue
      */
     public static function findByNameOrFail(
         $nom,

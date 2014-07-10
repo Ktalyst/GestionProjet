@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateServiceRequestTypesTable extends Migration {
+class CreateServiceRequestComplexitiesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateServiceRequestTypesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('serviceRequestTypes', function(Blueprint $table) {
+		Schema::create('serviceRequestComplexities', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('nom');
 			$table->string('code');
@@ -29,7 +29,7 @@ class CreateServiceRequestTypesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('serviceRequestTypes');
+		Schema::drop('serviceRequestComplexities');
 	}
 
 }

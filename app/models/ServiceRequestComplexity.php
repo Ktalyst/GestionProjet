@@ -1,6 +1,6 @@
 <?php
 
-class ServiceRequestType extends Eloquent {
+class ServiceRequestComplexity extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array(
@@ -19,16 +19,16 @@ class ServiceRequestType extends Eloquent {
      * @param string $nom The username.
      * @param mixed $columns The columns to return.
      *
-     * @throws ModelNotFoundException if no matching ServiceRequestType exists.
+     * @throws ModelNotFoundException if no matching ServiceRequestComplexity exists.
      *
-     * @return ServiceRequestType
+     * @return ServiceRequestComplexity
      */
     public static function findByNameOrFail(
         $nom,
         $columns = array('*')
     ) {
-        if ( ! is_null($ServiceRequestType = static::whereNom($nom)->first($columns))) {
-            return $ServiceRequestType;
+        if ( ! is_null($ServiceRequestComplexity = static::whereNom($nom)->first($columns))) {
+            return $ServiceRequestComplexity;
         }
 
         throw new ModelNotFoundException;

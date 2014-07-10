@@ -26,27 +26,66 @@
                 <div class="box-body">
                     @if ($errors->any())
                     <div class="alert alert-danger">
-                       <ul>
+                     <ul>
                         {{ implode('', $errors->all('<li class="error">:message</li>')) }}
                     </ul>
                 </div>
                 @endif
-                {{ Form::model($Catalogue, array('class' => 'form-horizontal', 'name'=>'general', 'method' => 'PATCH', 'route' => array('catalogues.update', $Catalogue->id))) }}
+                {{ Form::model($catalogue, array('route' => array('catalogues.update', $catalogue['id']),'name'=>'general', 'method' => 'PATCH')) }}
                 <div class="form-group">
-                    {{ Form::label('nom', 'Nom:', array('class'=>'control-label')) }}
+                    {{ Form::label('nom', 'Nom:', array('class'=>' control-label')) }}
                     {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
                 </div>
                 <div class="form-group">
                     {{ Form::label('code', 'Code:', array('class'=>'control-label')) }}
                     {{ Form::text('code', Input::old('code'), array('class'=>'form-control', 'placeholder'=>'Code')) }}
                 </div>
-                <div class="box-footer">      
-                    {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
-                    {{ link_to_route('catalogues.show', 'Cancel', $Catalogue->id, array('class' => 'btn btn-lg btn-default')) }}
+                <div class="form-group">
+                    @foreach ($select_types as $id => $nom)
+                    <label class="checkbox-inline">
+                        @if (in_array($nom, $srt)) 
+                        <input class="flat-red" name="srt[{{{ $id }}}]" value="{{{ $nom }}}" type="checkbox" checked/>{{{ $nom }}} 
+                        @else
+                        <input class="flat-red" name="srt[{{{ $id }}}]" value="{{{ $nom }}}" type="checkbox">{{{ $nom }}} 
+                        @endif
+                    <Label>
+                    @endforeach
                 </div>
-                {{ Form::close() }}
-                <div class="box-body table-responsive">
-                    @if ($Catalogue->serviceRequestTypes->count())
+                <div class="form-group">
+                    @foreach ($select_complexites as $id => $nom)
+                    <label class="checkbox-inline">
+                        @if(in_array($nom, $src))
+                        <input class="flat-red" name="src[{{{ $id }}}]" value="{{{ $nom }}}" type="checkbox" checked/>{{{ $nom }}}
+                        @else
+                        <input class="flat-red" name="src[{{{ $id }}}]" value="{{{ $nom }}}" type="checkbox">{{{ $nom }}} 
+                        @endif 
+                    <Label>
+                    @endforeach
+                </div>
+                <div class="box-body" id="dynamic">
+
+                    @foreach ($services as $key => $service)
+                    <div class="form-group">
+                        <input name="servicenom[{{{$key}}}]" type="text" value="{{{$service['nom']}}}">
+                    </div>
+                    <div class="form-group">
+                        <input name="servicecode[{{{$key}}}]" type="text" value="{{{$service['code']}}}">
+
+                    </div>
+                    {{ link_to_route('delete', 'Delete', array($service['id']), array('class' => 'btn btn-danger')) }}
+                    @endforeach
+
+            </div>
+            </div>
+                <input type="button"  class="btn btn-primary" value="Add another service" onClick="addInput('dynamic');"> 
+            
+            <div class="box-footer">      
+                {{ Form::submit('Update', array('class' => 'btn btn-lg btn-primary')) }}
+                {{ link_to_route('catalogues.show', 'Cancel', $catalogue->id, array('class' => 'btn btn-lg btn-default')) }}
+            </div>
+           {{ Form::close() }}
+               <!-- <div class="box-body table-responsive">
+                    @if ($catalogue->serviceRequestTypes->count())
                     <div class="box-group" id="accordeon">
                         <div class="panel box box-primary">
                             <div class="box-header">
@@ -67,7 +106,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($Catalogue->serviceRequestTypes as $srt)
+                                            @foreach ($catalogue->serviceRequestTypes as $srt)
                                             <tr id="change">
                                                 <td>{{{ $srt->nom }}}</td>
                                                 <td><input class="form-control" onchange="updateInput(this, this.value)" placeholder="Code" name="code" id="codesrt" type="text" value="{{{ $srt->nom }}}"></td>
@@ -93,7 +132,7 @@
                     @else
                     There are no contacts
                     @endif
-                </div>
+                </div>-->
             </div>
         </section>
     </div>
@@ -109,5 +148,20 @@ function updateInput(elmt, e){
     document.getElementById("change").innerHTML = res;
     document.getElementById("codesrt").value = res;
 }
+
+            var limit = 10;
+            function addInput(divName){
+                    var counter = (document.getElementById('dynamic').children.length - 1) / 2;
+                    var div = document.createElement('div');
+                    div.setAttribute('class',"form-group");
+                    div.innerHTML =  "<hr><input name='servicenom["+counter+"]' placeholder='Nom' type='text'>";
+                    var divbis = document.createElement('div');
+                    divbis.setAttribute('class',"form-group");
+                    divbis.innerHTML =  "<input name='servicecode["+counter+"]'  placeholder='Code' type='text' style='margin-left: 3px;'>";
+
+                    document.getElementById(divName).appendChild(div);
+                    document.getElementById(divName).appendChild(divbis);
+
+            }
 </script>
 @stop

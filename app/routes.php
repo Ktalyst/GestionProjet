@@ -33,8 +33,11 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('servicerequests', 'ServicerequestsController');
 	Route::resource('catalogues', 'CataloguesController');
 	Route::resource('servicerequesttypes', 'ServicerequesttypesController');
+	Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
 	Route::get('api/dropdown','ApiController@getIndex');
+	Route::resource('services', 'ServicesController');
 	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
+	Route::get('services/delete/{id}', array('as' => 'delete', 'uses' => 'ServicesController@destroy'));
 });
 
 
@@ -44,3 +47,7 @@ App::missing(function($exception)
 });
 
 
+
+
+
+Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');

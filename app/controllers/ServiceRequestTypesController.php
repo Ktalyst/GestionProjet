@@ -9,9 +9,10 @@ class ServiceRequestTypesController extends BaseController {
 	 */
 	protected $serviceRequestType;
 
-	public function __construct(ServiceRequestType $serviceRequestType)
+	public function __construct(ServiceRequestType $serviceRequestType, Catalogue $catalogue)
 	{
 		$this->serviceRequestType = $serviceRequestType;
+		$this->catalogue = $catalogue;
 	}
 
 	/**
@@ -33,7 +34,8 @@ class ServiceRequestTypesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('servicerequesttypes.create');
+		$catalogues = $this->catalogue->all();
+		return View::make('servicerequesttypes.create', compact('catalogues'));
 	}
 
 	/**
@@ -50,7 +52,7 @@ class ServiceRequestTypesController extends BaseController {
 		{
 			$this->serviceRequestType->create($input);
 
-			return true;
+			return Redirect::route('servicerequesttypes.index');
 		}
 
 		return Redirect::route('servicerequesttypes.create')
@@ -67,8 +69,8 @@ class ServiceRequestTypesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//$this->serviceRequestType->find($id)->delete();
-		return Redirect::to(URL::previous());
+		$serviceRequestType = $this->serviceRequestType->findOrFail($id);
+		return View::make('servicerequesttypes.show', compact('serviceRequestType'));
 	}
 
 	/**
@@ -98,21 +100,21 @@ class ServiceRequestTypesController extends BaseController {
 	 */
 	public function update($id, $code)
 	{
-		$input = array('nom' => 'a', 'code' => $code);
-		/*$validation = Validator::make($input, ServiceRequestType::$rules);
+		$input = array_except(Input::all(), '_method');
+		$validation = Validator::make($input, ServiceRequestType::$rules);
 
 		if ($validation->passes())
-		{*/
+		{
 			$serviceRequestType = $this->serviceRequestType->find($id);
 			$serviceRequestType->update($input);
-			return $serviceRequestType;
-			//return Redirect::to(URL::previous());
-		/*}
+
+			return Redirect::route('servicerequesttypes.show', $id);
+		}
 
 		return Redirect::route('servicerequesttypes.edit', $id)
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'There were validation errors.');*/
+			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -124,6 +126,8 @@ class ServiceRequestTypesController extends BaseController {
 	public function destroy($id)
 	{
 		$this->serviceRequestType->find($id)->delete();
+
+		return Redirect::route('servicerequesttypes.index');
 
 	}
 
