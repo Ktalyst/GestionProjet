@@ -13,6 +13,11 @@ class ServiceRequestType extends Eloquent {
 		return $this->belongsTo('Catalogue');
 	}
 
+    public function units()
+    {
+        return $this->hasMany('Unit', 'serviceRequestType_id');
+    }
+
     /**
      * Find by username, or throw an exception.
      *

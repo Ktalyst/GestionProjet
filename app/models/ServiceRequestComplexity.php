@@ -13,6 +13,11 @@ class ServiceRequestComplexity extends Eloquent {
 		return $this->belongsTo('Catalogue');
 	}
 
+    public function units()
+    {
+        return $this->hasMany('Unit', 'serviceRequestComplexity_id');
+    }
+
     /**
      * Find by username, or throw an exception.
      *

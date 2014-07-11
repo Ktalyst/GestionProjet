@@ -57,6 +57,7 @@
 									{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 									{{ Form::close() }}
 									{{ link_to_route('catalogues.edit', 'Edit', array($Catalogue->id), array('class' => 'btn btn-info')) }}
+									{{ link_to_route('catalogues.show', 'Show', array($Catalogue->id), array('class' => 'btn btn-primary')) }}
 								</td>
 							</tr>
 							@endforeach

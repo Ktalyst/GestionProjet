@@ -19,11 +19,6 @@
 </section>
 <section class="content">
     <div class="row">
-        <div class="col-xs-12 connectedSortable">
-
-        </div>
-    </div>
-    <div class="row">
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
                 <div class="box-header">

@@ -31,6 +31,7 @@
                 <li><a href="{{ URL::route('catalogues.index') }}"><i class="fa fa-angle-double-right"></i> List catalog</a></li>
                 <li><a href="{{ URL::route('servicerequesttypes.create') }}"><i class="fa fa-angle-double-right"></i> Add service request type</a></li>
                 <li><a href="{{ URL::route('servicerequestcomplexities.create') }}"><i class="fa fa-angle-double-right"></i> Add service request complexity</a></li>
+                <li><a href="{{ URL::route('services.index') }}"><i class="fa fa-angle-double-right"></i> Edit services</a></li>
             </ul>
         </li>
     </ul>

@@ -9,9 +9,10 @@ class ServicesController extends BaseController {
 	 */
 	protected $service;
 
-	public function __construct(Service $service)
+	public function __construct(Service $service, Unit $unit)
 	{
 		$this->service = $service;
+		$this->unit = $unit;
 	}
 
 	/**
@@ -37,6 +38,17 @@ class ServicesController extends BaseController {
 	}
 
 	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function unitCreate($id)
+	{
+		$service = $this->service->findOrFail($id);
+		return View::make('services.unitcreate', compact('service'));
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -57,6 +69,22 @@ class ServicesController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function unitStore()
+	{
+		$workload = Input::get('input');
+		foreach($workload as $unit)
+		{
+			$this->unit->create($unit);
+		}
+		$service_id = $workload["1"]["service_id"];
+		return Redirect::route('services.show', array("id" => $service_id));
 	}
 
 	/**

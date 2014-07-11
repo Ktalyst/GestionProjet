@@ -77,7 +77,7 @@ class CataloguesController extends BaseController {
 			$src->catalogue_id = $catalogue->id;
 			$src->save();
 		}
-			return Redirect::route('catalogues.index');
+		return Redirect::route('catalogues.index');
 	}
 
 	/**
@@ -135,26 +135,65 @@ class CataloguesController extends BaseController {
 		$servicecode = Input::get('servicecode');
 		for($i = 0; $i < count($servicenom); $i++)
 		{
-			$inputservice = array('nom' => $servicenom[$i], 'code' => $servicecode[$i], 'catalogue_id' => $catalogue->id);
-			$this->Service->create($inputservice);
+			if($this->Service->findByNameOrFail($servicenom[$i]) == false) {
+				$inputservice = array('nom' => $servicenom[$i], 'code' => $servicecode[$i], 'catalogue_id' => $catalogue->id);
+				$this->Service->create($inputservice);
+			} else {
+				$service = $this->Service->findByNameOrFail($servicenom[$i]);
+				$service->catalogue_id = $catalogue->id;
+				$service->save();
+			}
 		}
+		
+		$oldsrt = $catalogue->serviceRequestTypes;
+		$oldsrc = $catalogue->serviceRequestComplexities;
 
 		$nomsrt = Input::get('srt');
-		foreach($nomsrt as $key => $nom)
+		if(!empty($nomsrt))
 		{
-			$srt = $this->ServiceRequestType->findByNameOrFail($nom);
-			$srt->catalogue_id = $catalogue->id;
-			$srt->save();
+			foreach($oldsrt as $s){
+				if(!in_array($s, $nomsrt)){
+					$s['catalogue_id'] = 0;
+					$s->save();
+				}
+			}
+			foreach($nomsrt as $key => $nom)
+			{
+				$srt = $this->ServiceRequestType->findByNameOrFail($nom);
+				$srt->catalogue_id = $catalogue->id;
+				$srt->save();
+			}
+		}
+		else {
+			foreach($oldsrt as $s){
+					$s['catalogue_id'] = 0;
+					$s->save();
+			}			
 		}
 
 		$nomsrc = Input::get('src');
-		foreach($nomsrc as $key => $nom)
+		if(!empty($nomsrc))
 		{
-			$src = $this->ServiceRequestComplexity->findByNameOrFail($nom);
-			$src->catalogue_id = $catalogue->id;
-			$src->save();
+			foreach($oldsrc as $s){
+				if(!in_array($s, $nomsrc)){
+					$s['catalogue_id'] = 0;
+					$s->save();
+				}
+			}
+			foreach($nomsrc as $key => $nom)
+			{
+				$src = $this->ServiceRequestComplexity->findByNameOrFail($nom);
+				$src->catalogue_id = $catalogue->id;
+				$src->save();
+			}
 		}
-			return Redirect::route('catalogues.index');
+		else {
+			foreach($oldsrc as $s){
+					$s['catalogue_id'] = 0;
+					$s->save();
+			}			
+		}
+		return Redirect::route('catalogues.index');
 	}
 
 	/**

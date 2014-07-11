@@ -38,6 +38,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('services', 'ServicesController');
 	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
 	Route::get('services/delete/{id}', array('as' => 'delete', 'uses' => 'ServicesController@destroy'));
+	Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
+	Route::resource('units', 'UnitsController');
+	Route::get('services/units/{id}', array('as' => 'unitcreate', 'uses' => 'ServicesController@unitCreate'));
+	Route::post('services/units/store', array('as' => 'unitstore', 'uses' => 'ServicesController@unitStore'));
 });
 
 
@@ -50,4 +54,3 @@ App::missing(function($exception)
 
 
 
-Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
