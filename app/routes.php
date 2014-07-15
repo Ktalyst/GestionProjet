@@ -35,6 +35,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('servicerequesttypes', 'ServicerequesttypesController');
 	Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
 	Route::get('api/dropdown','ApiController@getIndex');
+	Route::get('api/dropdownCatalogue','ApiController@getIndexCatalogue');
 	Route::resource('services', 'ServicesController');
 	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
 	Route::get('services/delete/{id}', array('as' => 'delete', 'uses' => 'ServicesController@destroy'));
@@ -42,6 +43,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('units', 'UnitsController');
 	Route::get('services/units/{id}', array('as' => 'unitcreate', 'uses' => 'ServicesController@unitCreate'));
 	Route::post('services/units/store', array('as' => 'unitstore', 'uses' => 'ServicesController@unitStore'));
+	Route::resource('taches', 'TachesController');
 });
 
 
@@ -49,8 +51,3 @@ App::missing(function($exception)
 {
     return Response::make('error.404');
 });
-
-
-
-
-

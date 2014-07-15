@@ -19,6 +19,16 @@ class Service extends Eloquent {
         return $this->hasMany('Unit', 'service_id');
     }
 
+    public function taches()
+    {
+        return $this->hasMany('Tache', 'service_id');
+    }
+
+    public function serviceRequests()
+    {
+        return $this->belongsToMany('ServiceRequest')->withPivot('nombreUO');;
+    }
+
     /**
      * Find by username, or throw an exception.
      *

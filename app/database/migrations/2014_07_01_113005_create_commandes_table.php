@@ -16,6 +16,7 @@ class CreateCommandesTable extends Migration {
 			$table->increments('id');
 			$table->string('code');
 			$table->integer('contrat_id')->unsigned();
+			$table->foreign('contrat_id')->references('id')->on('contrat')->onDelete('restrict')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

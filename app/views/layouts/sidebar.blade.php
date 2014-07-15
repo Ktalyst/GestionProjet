@@ -34,6 +34,11 @@
                 <li><a href="{{ URL::route('services.index') }}"><i class="fa fa-angle-double-right"></i> Edit services</a></li>
             </ul>
         </li>
+        <li>
+            <a href="{{ URL::route('taches.index') }}">
+                <i class=""></i> <span>Taches</span>
+            </a>
+        </li>
     </ul>
 </section>
 @stop

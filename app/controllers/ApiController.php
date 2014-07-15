@@ -12,4 +12,14 @@ class ApiController extends BaseController
         $contacts = $client->contacts->lists('nom', 'id');
         return $contacts;
     }
+
+    public function getIndexCatalogue()
+    {
+        $input = Input::get('option');
+        $catalogue = Catalogue::find($input);
+        $types = $catalogue->serviceRequestTypes->lists('nom', 'id');
+        $complexities = $catalogue->serviceRequestComplexities->lists('nom', 'id');
+        $services = $catalogue->services->lists('nom', 'id');
+        return array('types' => $types, 'complexities' => $complexities, 'services' => $services);
+    }
 }

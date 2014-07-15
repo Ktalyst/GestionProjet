@@ -173,12 +173,12 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-    	var tds = document.getElementsByTagName('td');
-    	for(var td in tds)
+    	var tds = document.getElementsByName('gris');
+    	for(var i = 0; i < tds.length; i++)
     	{
-    		if(td.innerHTML == 0.00)
+    		if(tds[i].outerText == "0.00")
     		{
-    			alert('0');
+    			tds[i].setAttribute("style","background-color: #000;");
     		}
     	}
     });

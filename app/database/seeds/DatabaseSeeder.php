@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ServicesTableSeeder');
 		$this->call('ServicerequestcomplexitiesTableSeeder');
 		$this->call('UnitsTableSeeder');
+		$this->call('TachesTableSeeder');
 	}
 }

@@ -17,6 +17,7 @@ class CreateServicesTable extends Migration {
 			$table->string('nom');
 			$table->string('code');
 			$table->integer('catalogue_id')->unsigned();
+			$table->foreign('catalogue_id')->references('id')->on('catalogue')->onDelete('cascade')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

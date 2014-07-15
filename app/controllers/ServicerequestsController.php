@@ -9,9 +9,11 @@ class ServicerequestsController extends BaseController {
 	 */
 	protected $servicerequest;
 
-	public function __construct(Servicerequest $servicerequest)
+	public function __construct(Servicerequest $servicerequest, Catalogue $catalogue, Item $item)
 	{
 		$this->servicerequest = $servicerequest;
+		$this->catalogue = $catalogue;
+		$this->item = $item;
 	}
 
 	/**
@@ -33,7 +35,9 @@ class ServicerequestsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('servicerequests.create');
+		return View::make('servicerequests.create', 
+			array('selectitem' => $this->item->all()->lists('code', 'id'), 
+				'selectcatalogue' => $this->catalogue->all()->lists('nom', 'id')));
 	}
 
 	/**
@@ -43,20 +47,38 @@ class ServicerequestsController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		$item = Input::get('item_id');
+		$srtype = Input::get('servicerequesttype_id');
+		$src = Input::get('servicerequestcomplexity_id') ;
+		$nom = Input::get('nom');
+		$input = array('nom' => $nom, 'item_id' => $item, 'servicerequesttype_id' => $srtype, 'servicerequestcomplexity_id' => $src);
 		$validation = Validator::make($input, Servicerequest::$rules);
 
 		if ($validation->passes())
 		{
-			$this->servicerequest->create($input);
+			$sr = $this->servicerequest->create($input);
+			DB::transaction(function() use($sr)
+			{
+				$services = array_unique(Input::get('service'));
+				$uo = Input::get('uo');
+				foreach($services as $key => $s)
+				{
+					foreach($uo as $keyuo => $u){
+						if($keyuo == $key){
+							$sr->pivot->nombreUO = $u;
+							$sr->services()->attach($key);
+						}
+					}
+				}
+			}); 
 
-			return Redirect::route('servicerequests.index');
+
 		}
 
 		return Redirect::route('servicerequests.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		->withInput()
+		->withErrors($validation)
+		->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -110,9 +132,9 @@ class ServicerequestsController extends BaseController {
 		}
 
 		return Redirect::route('servicerequests.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		->withInput()
+		->withErrors($validation)
+		->with('message', 'There were validation errors.');
 	}
 
 	/**
