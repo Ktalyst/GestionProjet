@@ -11,26 +11,13 @@
         Customer
         <small>Edit</small>
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-list"></i> Customers</a></li>
-        <li class="active">Edit</li>
-    </ol>
 </section>
 <section class="content">
     <div class="row">
         <section class="col-xs-12 connectedSortable"> 
             <div class="box box-primary">
                 <div class="box-header">
-                    <div class="box-title">Edit customer</div>
-                    <div class="pull-right box-tools">
-                        <div class="btn-group">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="{{ URL::route('contacts.create') }}">Add new contacts</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="box-title">Edit customer {{{ $client->nom }}}</div>
                 </div>
                 <div class="box-body">
                     @if ($errors->any())
@@ -41,64 +28,38 @@
                     </div>
                     @endif
                     {{ Form::model($client, array('role' => 'form',  'method' => 'PATCH', 'route' => array('clients.update', $client->id))) }}
-                    
                     <div class="form-group">
                         {{ Form::label('nom', 'Nom:') }}
                         {{ Form::text('nom', Input::old('nom'), array('class'=>'form-control', 'placeholder'=>'Nom')) }}
                     </div>
-
-                    <div class="box-footer">
-                        {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
-                        {{ link_to_route('clients.show', 'Cancel', $client->id, array('class' => 'btn btn-default')) }}
-                    </div>
-                    {{ Form::close() }}
-                    <div class="box-body table-responsive">
-                        @if ($contacts->count())
-                        <div class="box-group" id="accordeon">
-                            <div class="panel box box-primary">
-                            <div class="box-header">
-                                <h4 class="box-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">                           
-                                        <i class="fa fa-plus-square-o"></i><span> Contacts</span>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse in" style="height: auto;">
-                                <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Nom</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($contacts as $contact)
-                                            <tr>
-                                                <td>{{{ $contact->nom }}}</td>
-                                                <td>
-                                                    {{ link_to_route('contacts.destroy', 'Delete', array($contact->id), array('class' => 'btn btn-danger')) }}
-                                                    {{ link_to_route('contacts.edit', 'Edit', array($contact->id), array('class' => 'btn btn-info')) }}
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Nom</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                            </div>
-                            @else
-                            There are no contacts
-                            @endif
+                    <hr>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="box-body" id="dynamic">
+                                                        <div class="box-title">Edit contacts</div>
+                            </br>
+                        @foreach ($contacts as $key => $contact)
+                        <div class="form-group">
+                            <input class='form-control input-sm' name="contactnom[{{{$key}}}]" type="text" value="{{{$contact['nom']}}}">
                         </div>
+                        <div class="form-group">
+                            <input class='form-control input-sm' name="contactprenom[{{{$key}}}]" type="text" value="{{{$contact['prenom']}}}">
+                        </div>
+                        <div class="form-group">
+                            <input class='form-control input-sm' name="contactadresse[{{{$key}}}]" type="text" value="{{{$contact['adresse']}}}">
+                        </div>
+                        <div class="form-group">
+                        {{ link_to_route('deletecontacts', 'Delete', array($contact['id']), array('class' => 'btn btn-danger')) }}
+                        </div>
+                        @endforeach
                     </div>
                 </div>
+                <input type="button"  class="btn btn-primary" value="Add another contact" onClick="addInput('dynamic');"> 
+
+                <div class="box-footer">      
+                    {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                     <a href = "{{ URL::route('clients.index') }}" class = 'btn btn-default'>Back</a>
+                </div>
+                {{ Form::close() }}
             </div>
         </section>
     </div>
@@ -107,16 +68,22 @@
 
 @section('script')
 <script type="text/javascript">
-$(function() {
-    $("#example1").dataTable();
-    $('#example2').dataTable({
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false
-    });
-});
+var counter = (document.getElementById('dynamic').children.length - 1) / 2;
+var limit = 10;
+function addInput(divName){
+    var div = document.createElement('div');
+    div.setAttribute('class',"form-group");
+    div.innerHTML =  "<hr><input class='form-control input-sm' name='contactnom["+counter+"]' placeholder='Entrer le nom du contact' type='text'>";
+    var divbis = document.createElement('div');
+    divbis.setAttribute('class',"form-group");
+    divbis.innerHTML =  "<input class='form-control input-sm' name='contactprenom["+counter+"]'  placeholder='Entrer le prénom du contact' type='text' >";
+    var divter = document.createElement('div');
+    divter.setAttribute('class',"form-group");
+    divter.innerHTML =  "<input class='form-control input-sm' name='contactadresse["+counter+"]'  placeholder='Entrer l adresse du contact' type='text' >";
+    document.getElementById(divName).appendChild(div);
+    document.getElementById(divName).appendChild(divbis);
+    document.getElementById(divName).appendChild(divter);
+    counter++;
+}
 </script>
 @stop

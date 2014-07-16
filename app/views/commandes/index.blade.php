@@ -11,10 +11,6 @@
 		Commandes
 		<small>List</small>
 	</h1>
-	<ol class="breadcrumb">
-		<li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Commandes</li>
-	</ol>
 </section>
 
 <section class="content">
@@ -30,14 +26,6 @@
 			<div class="box box-primary">
 				<div class="box-header">
 					<div class="box-title">All commandes</div>
-					<div class="pull-right box-tools">
-						<div class="btn-group">
-							<button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-							<ul class="dropdown-menu pull-right" role="menu">
-								<li><a href="{{ URL::route('commandes.create') }}">Add new commande</a></li>
-							</ul>
-						</div>
-					</div>
 				</div>
 				<div class="box-body table-responsive">
 					<table id="example1" class="table table-bordered table-striped">

@@ -18,7 +18,6 @@ class CreateContactsTable extends Migration {
 			$table->string('prenom', 255);
 			$table->text('adresse');
 			$table->integer('client_id')->unsigned();
-			$table->foreign('client_id')->references('id')->on('client')->onDelete('cascade')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

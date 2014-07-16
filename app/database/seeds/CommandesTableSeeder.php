@@ -4,15 +4,27 @@ class CommandesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('commandes')->truncate();
+		DB::table('commandes')->insert(
+			array(
+				array(
+					'id' => 1,
+					'code' => 'Com58d8',
+					'contrat_id' => '1',
+				),
 
-		$commandes = array(
+				array(
+					'id' => 2,
+					'code' => 'Comf58',
+					'contrat_id' => '1',
+				),
 
+				array(
+					'id' => 3,
+					'code' => 'Coms569',
+					'contrat_id' => '1',
+				),
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('commandes')->insert($commandes);
 	}
 
 }

@@ -4,15 +4,30 @@ class ServicerequestcomplexitiesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('servicerequestcomplexities')->truncate();
+		DB::table('service_request_complexities')->insert(
+			array(
+				array(
+					'id' => 1,
+					'nom' => 'low',
+					'code' => 'l',
+					'catalogue_id' => 1,
+				),
 
-		$servicerequestcomplexities = array(
+				array(
+					'id' => 2,
+					'nom' => 'medium',
+					'code' => 'm',
+					'catalogue_id' => 1,
+				),
 
+				array(
+					'id' => 3,
+					'nom' => 'high',
+					'code' => 'h',
+					'catalogue_id' => 2,
+				),
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('servicerequestcomplexities')->insert($servicerequestcomplexities);
 	}
 
 }

@@ -4,15 +4,26 @@ class ClientsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('clients')->truncate();
+		DB::table('clients')->insert(
+			array(
+				array(
+					'id' => 1,
+					'nom' => 'Airbus',
+				),
 
-		$clients = array(
+				array(
+					'id' => 2,
+					'nom' => 'EDF',
+				),
 
+				array(
+					'id' => 3,
+					'nom' => 'Sopra',
+				)
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('clients')->insert($clients);
 	}
 
 }
+
+

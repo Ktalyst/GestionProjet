@@ -10,11 +10,6 @@
         Catalogue
         <small>Create</small>
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="{{ URL::route('accueil') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ URL::route('catalogues.index') }}"><i class="fa fa-list"></i> Catalogues</a></li>
-        <li class="active">create</li>
-    </ol>
 </section>
 <section class="content">
     <div class="row">

@@ -22,4 +22,12 @@ class ApiController extends BaseController
         $services = $catalogue->services->lists('nom', 'id');
         return array('types' => $types, 'complexities' => $complexities, 'services' => $services);
     }
+
+    public function getIndexCommande()
+    {
+        $input = Input::get('option');
+        $client = Client::find($input);
+        $contrats = $client->contrats->lists('nom', 'id');
+        return $contrats;
+    }
 }

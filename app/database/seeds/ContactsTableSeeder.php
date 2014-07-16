@@ -4,15 +4,33 @@ class ContactsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('contacts')->truncate();
+		DB::table('contacts')->insert(
+			array(
+				array(
+					'id' => 1,
+					'nom' => 'Dupond',
+					'prenom' => 'Jean',
+					'adresse' => '115 route des cannes',
+					'client_id' => '1',
+				),
 
-		$contacts = array(
+				array(
+					'id' => 2,
+					'nom' => 'Dupont',
+					'prenom' => 'Pierre',
+					'adresse' => '12 avenue des tulipes',
+					'client_id' => '1',
+				),
 
+				array(
+					'id' => 3,
+					'nom' => 'Tintin',
+					'prenom' => 'Pinpin',
+					'adresse' => '5 rue des pins',
+					'client_id' => '2',
+				)
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('contacts')->insert($contacts);
 	}
 
 }

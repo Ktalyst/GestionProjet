@@ -17,7 +17,6 @@ class CreateTachesTable extends Migration {
 			$table->string('nom');
 			$table->decimal('pourcentage');
 			$table->integer('service_id')->unsigned();
-			$table->foreign('service_id')->references('id')->on('service')->onDelete('restrict')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

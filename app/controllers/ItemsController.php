@@ -124,9 +124,9 @@ class ItemsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->item->find($id)->delete();
-
-		return Redirect::route('items.index');
+		$item = $this->item->find($id);
+		$item->delete();
+		return Redirect::to(URL::previous())->withInput();
 	}
 
 }

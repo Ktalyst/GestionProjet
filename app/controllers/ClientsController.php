@@ -10,10 +10,10 @@ class ClientsController extends BaseController {
 	 */
 	protected $client;
 
-	public function __construct(Client $client)
+	public function __construct(Client $client, Contact $contact)
 	{
 		$this->client = $client;
-		//$this->contacts = $contacts;
+		$this->contact = $contact;
 	}
 
 	/**
@@ -45,12 +45,26 @@ class ClientsController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		$nom = Input::get('nom');
+		$input = array('nom' => $nom);
 		$validation = Validator::make($input, Client::$rules);
-
 		if ($validation->passes())
 		{
-			$this->client->create($input);
+			$client = $this->client->create($input);
+
+			$contactnom= Input::get('contactnom');
+			$contactprenom = Input::get('contactprenom');
+			$contactadresse = Input::get('contactadresse');
+			for($i = 1; $i <= count($contactnom); $i++)
+			{
+				$inputcontact = array('nom' => $contactnom[$i], 'prenom' => $contactprenom[$i], 'adresse' => $contactadresse[$i], 'client_id' => $client->id);
+				$validationcontact = Validator::make($inputcontact, Contact::$rules);
+				if ($validationcontact->passes())
+				{
+					$this->contact->create($inputcontact);
+				}
+
+			}
 
 			return Redirect::route('clients.index');
 		}
@@ -100,19 +114,35 @@ class ClientsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
+		$client = $this->client->find($id);
+		$nom = Input::get('nom');
+		$input = array('nom' => $nom);
 		$validation = Validator::make($input, Client::$rules);
 
 		if ($validation->passes())
 		{
-			$client = $this->client->find($id);
-			$nom = Input::get('nom');
 			$client->nom = $nom;
 			$client->save();
-
-			return Redirect::route('clients.show', $id);
+			$contactnom= Input::get('contactnom');
+			$contactprenom = Input::get('contactprenom');
+			$contactadresse = Input::get('contactadresse');
+			for($i = 0; $i < count($contactnom); $i++)
+			{
+				if($this->contact->findByNameOrFail($contactnom[$i]) == false) {
+					$inputcontact = array('nom' => $contactnom[$i], 'prenom' => $contactprenom[$i], 'adresse' => $contactadresse[$i], 'client_id' => $client->id);
+					$validationcontact = Validator::make($inputcontact, Contact::$rules);
+					if ($validationcontact->passes())
+					{
+						$this->contact->create($inputcontact);
+					}
+				} else {
+					$contact = $this->contact->findByNameOrFail($contactnom[$i]);
+					$contact->client_id = $client->id;
+					$contact->save();
+				}
+			}
+			return Redirect::route('clients.index', $id);
 		}
-
 		return Redirect::route('clients.edit', $id)
 			->withInput()
 			->withErrors($validation)

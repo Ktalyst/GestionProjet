@@ -4,15 +4,29 @@ class ServicesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('services')->truncate();
+		DB::table('services')->insert(
+			array(
+				array(
+					'id' => 1,
+					'nom' => 'Service 1',
+					'code' => '4f5d694',
+					'catalogue_id' => 1,
+				),
 
-		$services = array(
+				array(
+					'id' => 2,
+					'nom' => 'Service 1',
+					'code' => '4f5d694',
+					'catalogue_id' => 1,
+				),
 
+				array(
+					'id' => 3,
+					'nom' => 'Service 1',
+					'code' => '4f5d694',
+					'catalogue_id' => 2,
+				),
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('services')->insert($services);
 	}
-
 }

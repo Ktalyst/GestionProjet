@@ -14,4 +14,15 @@ class Item extends Eloquent {
 	{
 		return $this->belongsTo('Commande');
 	}
+
+   public static function findByCodeOrFail(
+        $code,
+        $columns = array('*')
+    ) {
+        if ( ! is_null($Item = static::whereCode($code)->first($columns))) {
+            return $Item;
+        }
+
+        return false;
+    }
 }

@@ -126,7 +126,9 @@ class ContactsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->contact->find($id)->delete();
+		$contact = $this->contact->find($id);
+		$contact->delete();
+		return Redirect::to(URL::previous())->withInput();
 	}
 
 }

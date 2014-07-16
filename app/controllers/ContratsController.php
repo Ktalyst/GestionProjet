@@ -86,13 +86,15 @@ class ContratsController extends BaseController {
 	public function edit($id)
 	{
 		$contrat = $this->contrat->find($id);
+		$client = $contrat->contact->client;
+		$contacts = $client->contacts;
 
 		if (is_null($contrat))
 		{
 			return Redirect::route('contrats.index');
 		}
 
-		return View::make('contrats.edit', compact('contrat'), array('select' => $this->contact->all()->lists('nom', 'id')));
+		return View::make('contrats.edit', compact('contrat'), array('select' => $contacts->lists('nom', 'id')));
 	}
 
 	/**
@@ -112,7 +114,7 @@ class ContratsController extends BaseController {
 
 
 
-		return Redirect::route('contrats.show', $id);
+		return Redirect::route('contrats.index');
 
 	}
 

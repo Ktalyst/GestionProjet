@@ -4,15 +4,30 @@ class ServicerequesttypesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table('servicerequesttypes')->truncate();
+		DB::table('service_request_types')->insert(
+			array(
+				array(
+					'id' => 1,
+					'nom' => 'PR',
+					'code' => 'pr',
+					'catalogue_id' => 1,
+				),
 
-		$servicerequesttypes = array(
+				array(
+					'id' => 2,
+					'nom' => 'CR',
+					'code' => 'cr',
+					'catalogue_id' => 1,
+				),
 
+				array(
+					'id' => 3,
+					'nom' => 'NR',
+					'code' => 'nr',
+					'catalogue_id' => 2,
+				),
+			)
 		);
-
-		// Uncomment the below to run the seeder
-		// DB::table('servicerequesttypes')->insert($servicerequesttypes);
 	}
 
 }

@@ -19,7 +19,6 @@ class CreateItemsTable extends Migration {
 			$table->decimal('montant');
 			$table->text('description');
 			$table->integer('commande_id')->unsigned();
-			$table->foreign('commande_id')->references('id')->on('commande')->onDelete('cascade')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

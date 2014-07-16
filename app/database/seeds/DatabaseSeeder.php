@@ -10,12 +10,12 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ContratsTableSeeder');
 		$this->call('CommandesTableSeeder');
 		$this->call('ItemsTableSeeder');
-		$this->call('ServicerequestsTableSeeder');
-		$this->call('UserTableSeeder');
 		$this->call('CataloguesTableSeeder');
 		$this->call('ServicerequesttypesTableSeeder');
-		$this->call('ServicesTableSeeder');
 		$this->call('ServicerequestcomplexitiesTableSeeder');
+		$this->call('ServicesTableSeeder');
+		$this->call('ServicerequestsTableSeeder');
+		$this->call('UserTableSeeder');
 		$this->call('UnitsTableSeeder');
 		$this->call('TachesTableSeeder');
 	}

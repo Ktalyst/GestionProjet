@@ -36,9 +36,12 @@ Route::group(array('before' => 'auth'), function()
 	Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
 	Route::get('api/dropdown','ApiController@getIndex');
 	Route::get('api/dropdownCatalogue','ApiController@getIndexCatalogue');
+	Route::get('api/dropdowncommande','ApiController@getIndexCommande');
 	Route::resource('services', 'ServicesController');
 	Route::get('commandes/imprimer/{id}', array('as' => 'print', 'uses' => 'CommandesController@imprimer'));
 	Route::get('services/delete/{id}', array('as' => 'delete', 'uses' => 'ServicesController@destroy'));
+	Route::get('contacts/delete/{id}', array('as' => 'deletecontacts', 'uses' => 'ContactsController@destroy'));
+	Route::get('items/delete/{id}', array('as' => 'deleteitems', 'uses' => 'ItemsController@destroy'));
 	Route::resource('servicerequestcomplexities', 'ServicerequestcomplexitiesController');
 	Route::resource('units', 'UnitsController');
 	Route::get('services/units/{id}', array('as' => 'unitcreate', 'uses' => 'ServicesController@unitCreate'));

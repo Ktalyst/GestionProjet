@@ -30,6 +30,7 @@
     <script async="" src="//www.google-analytics.com/analytics.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     {{ HTML::script('js/bootstrap.min.js'); }}
+    {{ HTML::script('js/plugins/datatables/jquery.dataTables.js'); }}
      @yield('script')
     <script type="text/javascript">
     $(function() {
@@ -44,7 +45,6 @@
         });
     });
     </script>
-    {{ HTML::script('js/plugins/datatables/jquery.dataTables.js'); }}
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     {{ HTML::script('js/plugins/datatables/dataTables.bootstrap.js'); }}
     {{ HTML::script('js/plugins/morris/morris.min.js'); }}

@@ -7,20 +7,35 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li>
-            <a href="{{ URL::route('clients.index') }}">
-                <i class="glyphicon glyphicon-user"></i> <span>Customers</span>
+        <li class="treeview">
+            <a href="#">
+                <span>Customers</span>
+                <i class="fa fa-angle-left pull-right"></i>
             </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ URL::route('clients.create') }}"><i class="fa fa-angle-double-right"></i> Add new customer</a></li>
+                <li><a href="{{ URL::route('clients.index') }}"><i class="fa fa-angle-double-right"></i> View all customers</a></li>
+            </ul>
         </li>
-        <li>
-            <a href="{{ URL::route('contrats.index') }}">
-                <i class="glyphicon glyphicon-file"></i> <span>Contracts</span>
+        <li class="treeview">
+            <a href="#">
+                <span>Contracts</span>
+                <i class="fa fa-angle-left pull-right"></i>
             </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ URL::route('contrats.create') }}"><i class="fa fa-angle-double-right"></i> Add new contract</a></li>
+                <li><a href="{{ URL::route('contrats.index') }}"><i class="fa fa-angle-double-right"></i> View all contracts</a></li>
+            </ul>
         </li>
-        <li>
-            <a href="{{ URL::route('commandes.index') }}">
-                <i class="glyphicon glyphicon-barcode"></i> <span>Orders</span>
+        <li class="treeview">
+            <a href="#">
+                 <span>Orders</span>
+                <i class="fa fa-angle-left pull-right"></i>
             </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ URL::route('commandes.create') }}"><i class="fa fa-angle-double-right"></i> Add new order</a></li>
+                <li><a href="{{ URL::route('commandes.index') }}"><i class="fa fa-angle-double-right"></i> View all orders</a></li>
+            </ul>
         </li>
         <li class="treeview">
             <a href="#">

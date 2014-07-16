@@ -9,10 +9,12 @@ class CommandesController extends BaseController {
 	 */
 	protected $commande;
 
-	public function __construct(Commande $commande, Contrat $contrat)
+	public function __construct(Commande $commande, Contrat $contrat, Client $client, Item $item)
 	{
 		$this->commande = $commande;
 		$this->contrat = $contrat;
+		$this->client = $client;
+		$this->item = $item;
 	}
 
 	/**
@@ -34,7 +36,8 @@ class CommandesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('commandes.create', array('select' => $this->contrat->all()->lists('nom', 'id')));
+		return View::make('commandes.create', array('select' => $this->contrat->all()->lists('nom', 'id'), 	
+				'selectclient' => $this->client->all()->lists('nom', 'id') ));
 	}
 
 	/**
@@ -44,12 +47,34 @@ class CommandesController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		$code = Input::get('code');
+		$contrat = Input::get('contrat_id');
+		$input = array('code' => $code, 'contrat_id' => $contrat);
+		$validation = Validator::make($input, Commande::$rules);
+		if ($validation->passes())
+		{
+			$commande = $this->commande->create($input);
 
-			$this->commande->create($input);
+			$itemcode= Input::get('itemcode');
+			$itemdate = Input::get('itemdate');
+			$itemmontant = Input::get('itemmontant');
+			$itemdesc = Input::get('itemdesc');
+			for($i = 1; $i <= count($itemcode); $i++)
+			{
+				$inputitem = array('code' => $itemcode[$i], 'dateRecu' => date("Y-m-d", strtotime($itemdate[$i])), 'montant' => $itemmontant[$i], 'description' => $itemdesc[$i], 'commande_id' => $commande->id);
+				$validationitem = Validator::make($inputitem, Item::$rules);
+				if ($validationitem->passes())
+				{
+					$this->item->create($inputitem);
+				}
 
+			}
 			return Redirect::route('commandes.index');
-
+		}
+		return Redirect::route('clients.create')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -80,7 +105,7 @@ class CommandesController extends BaseController {
 			return Redirect::route('commandes.index');
 		}
 
-		return View::make('commandes.edit', compact('commande'));
+		return View::make('commandes.edit', compact('commande'), array('items' => $commande->items));
 	}
 
 	/**
@@ -91,21 +116,28 @@ class CommandesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Commande::$rules);
+		$commande = $this->commande->find($id);
+		$code = Input::get('code');
+		$commande->code = $code;
+		$commande->save();
 
-		if ($validation->passes())
+		$itemcode= Input::get('itemcode');
+		$itemdate = Input::get('itemdate');
+		$itemmontant = Input::get('itemmontant');
+		$itemdesc = Input::get('itemdesc');
+		for($i = 0; $i < count($itemcode); $i++)
 		{
-			$commande = $this->commande->find($id);
-			$commande->update($input);
-
-			return Redirect::route('commandes.show', $id);
+			if($this->item->findByCodeOrFail($itemcode[$i]) == false) {
+				$inputitemc = array('code' => $itemcode[$i], 'dateRecu' => date("Y-m-d", strtotime($itemdate[$i])), 'montant' => $itemmontant[$i], 'description' => $itemdesc[$i], 'commande_id' => $commande->id);
+				$this->item->create($inputitemc);
+				return $inputitemc;
+			} else {
+				$item = $this->item->findByCodeOrFail($itemcode[$i]);
+				$inputitem = array('dateRecu' => date("Y-m-d", strtotime($itemdate[$i])), 'montant' => $itemmontant[$i], 'description' => $itemdesc[$i]);
+				$item->update($inputitem);
+			}
 		}
-
-		return Redirect::route('commandes.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		return Redirect::route('commandes.index');
 	}
 
 	/**
